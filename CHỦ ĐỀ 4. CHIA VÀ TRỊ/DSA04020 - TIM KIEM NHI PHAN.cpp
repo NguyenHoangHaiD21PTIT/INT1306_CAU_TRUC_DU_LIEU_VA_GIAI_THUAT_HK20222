@@ -33,7 +33,7 @@ int main(){
 		if(tknp(a,n,x)==-1){
 			cout<<"NO"<<endl;
 		} else {
-			cout<<tknp(a,n,x)+1;
+			cout<<tknp(a,n,x)+1<<endl;
 		}
 	}
 }
