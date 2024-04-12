@@ -21,7 +21,7 @@ int main(){
 			if(p<0){
 				cout<<0<<endl;
 			} else {
-				cout<<p<<endl;
+				cout<<p + 1<<endl;
 			}
 		}
 	}
