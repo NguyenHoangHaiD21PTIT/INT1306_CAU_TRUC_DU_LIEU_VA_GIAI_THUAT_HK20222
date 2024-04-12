@@ -1,24 +1,23 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int n, x, a[100];
-
-bool cmp(int b1, int b2){
-	return abs(b1-x)<abs(b2-x);
-}
-
-int main(){
-	int t;
-	cin>>t;
-	while(t--){
-		cin>>n>>x;
-		for(int i=0;i<n;i++){
-			cin>>a[i];
-		}
-		stable_sort(a,a+n,cmp);
-		for(int i=0;i<n;i++){
-			cout<<a[i]<<" ";
-		}
-		cout<<endl;
-	}
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, x;
+        cin >> n >> x;
+        vector<pair<int, int>> vp;
+        for (int i = 0; i < n; i++) {
+            int val;
+            cin >> val;
+            vp.push_back({abs(val - x), val});
+        }
+        stable_sort(vp.begin(), vp.end());
+        for (auto p : vp) {
+            cout << p.second << " ";
+        }
+        cout << endl;
+    }
+    return 0;
 }
