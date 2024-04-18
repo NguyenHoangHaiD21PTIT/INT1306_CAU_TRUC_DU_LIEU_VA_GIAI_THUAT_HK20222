@@ -32,7 +32,7 @@ int main(){
 			for(int i=1;i<=k;i++){
 				cout<<a[i];
 			} 
-			if(cnt!=pow(2,n)) cout<<",";
+			cout<<",";
 			sinh();
 		}
 		cout<<endl;
