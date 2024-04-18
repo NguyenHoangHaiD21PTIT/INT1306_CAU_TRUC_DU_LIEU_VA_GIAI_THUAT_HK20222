@@ -19,7 +19,7 @@ int main(){
         for(int i = 0;i<n;i++){
             while(!st2.empty() && a[i] <= a[st2.top()]) st2.pop();
             if(st2.empty()) l[i] = 0;
-            else r[i] = st2.top() + 1;
+            else l[i] = st2.top() + 1;
             st2.push(i);
         }
         long long res = -1;
