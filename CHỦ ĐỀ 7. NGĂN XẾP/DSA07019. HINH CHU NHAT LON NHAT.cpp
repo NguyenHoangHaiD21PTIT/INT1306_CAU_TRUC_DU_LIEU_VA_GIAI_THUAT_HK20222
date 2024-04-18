@@ -1,36 +1,31 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 int main(){
-	long long t;
-	cin>>t;
-	while(t--){
-		long long n;
-		cin>>n;
-		long long a[n];
-		for(long long i = 0;i<n;i++) cin>>a[i];
-		stack<long long>st; //luu chi so cua cot hinh chu nhat
-		long long res = -1e18;
-		long long i = 0;
-		while(i<n){
-			if(st.empty()||a[i]>a[st.top()]){ //co the noi dai duoc them hinh chu nhat
-				st.push(i);
-				i++;
-			} else { //Hinh chu nhat loang den i thi bi dut doan
-				long long idx = st.top();
-				st.pop();
-				//Can phai la i, can trai la cai truoc idx strong st
-				if(st.empty()) res = max(res, i * a[idx]);
-				else res = max(res, a[idx] * (i - st.top()-1));
-			}
-		}
-		while(!st.empty()){
-			long long idx = st.top();
-			st.pop();
-			//Can phai la i, can trai la cai truoc idx strong st
-			if(st.empty()) res = max(res, i * a[idx]);
-			else res = max(res, a[idx] * (i - st.top()-1));
-		}
-		cout<<res<<endl;
-	}
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        int l[n], r[n], a[n];// Tìm Vị trí phần tử đầu tiên bên trái, bên phải a[i] bé hơn a[i]
+        //l, r là cận trái, phải của HCN
+        for(int i = 0;i<n;i++) cin>>a[i];
+        stack<int>st1, st2;
+        for(int i = n - 1;i>=0;i--){
+            while(!st1.empty() && a[i] <= a[st1.top()]) st1.pop();
+            if(st1.empty()) r[i] = n - 1;
+            else r[i] = st1.top() - 1;
+            st1.push(i);
+        }
+        for(int i = 0;i<n;i++){
+            while(!st2.empty() && a[i] <= a[st2.top()]) st2.pop();
+            if(st2.empty()) l[i] = 0;
+            else r[i] = st2.top() + 1;
+            st2.push(i);
+        }
+        long long res = -1;
+        for(int i = 0;i<n;i++){
+            res = max(res, 1LL * (r[i] - l[i] + 1) * a[i]);
+        }
+        cout<<res<<endl;
+    }
 }
