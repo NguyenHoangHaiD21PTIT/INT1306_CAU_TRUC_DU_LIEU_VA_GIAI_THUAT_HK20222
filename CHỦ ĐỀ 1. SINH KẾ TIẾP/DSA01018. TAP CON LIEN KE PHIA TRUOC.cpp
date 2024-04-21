@@ -32,4 +32,4 @@ Từ ấy về sau là những vị trí mà tổ hợp trước đó đạt MAX
 Xử lý các trường hợp đặc biệt:
 TH1: Không tồn tại Pos nhưng phần tử đầu tiên khác 1 --> Giảm phần tử đầu xuống bình thường, gán cực đại cho dãy còn lại
 TH2: Phần tử đầu tiên bằng 1 --> Không thể giảm, cấu hình đầu --> Gán cực đại cho cả dãy để tính cấu hình cuối */
-*/
+
