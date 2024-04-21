@@ -15,18 +15,18 @@ void Try(int i, int j){
 		ok =1;
 		cout<<s<<" ";
 	} 
-		for(int k=0;k<2;k++){
-			int i1 = i + dx[k];
-			int j1 = j + dy[k];
-			if(i1>=0&&i1<=n-1&&j1>=0&&j1<=n-1&&a[i1][j1]==1){
-				s=s+tmp[k];
-				a[i1][j1] = 0;//o da xet tren duong di
-				Try(i1,j1);
-				//Backtrack lai try truoc do. Try nao thuc hien xong thi tra lai trang thai
-				a[i1][j1] =1 ;
-				s.pop_back();	
-			}
+	for(int k=0;k<2;k++){
+		int i1 = i + dx[k];
+		int j1 = j + dy[k];
+		if(i1>=0&&i1<=n-1&&j1>=0&&j1<=n-1&&a[i1][j1]==1){
+			s=s+tmp[k];
+			a[i1][j1] = 0;//o da xet tren duong di
+			Try(i1,j1);
+			//Backtrack lai try truoc do. Try nao thuc hien xong thi tra lai trang thai
+			a[i1][j1] =1 ;
+			s.pop_back();	
 		}
+	}
 }
 
 int main(){
@@ -40,7 +40,7 @@ int main(){
 				cin>>a[i][j];
 			}
 		}
-		if(a[n-1][n-1]==1&&a[0][0]){
+		if(a[n-1][n-1]==1&&a[0][0]== 1){
 			a[0][0] = 0;
 			Try(0,0);
 			if(ok==0) cout<<-1;
