@@ -21,7 +21,7 @@ int main(){
         // Reset stack 
         while (!st.empty()) st.pop();
 
-        // Phần tử bên phải đầu tiên nhỏ hơn
+        // Phần tử bên phải đầu tiên lớn hơn bằng
         for (int i = n - 1; i >= 0; i--) {
             while (!st.empty() && arr[st.top()] < arr[i]) st.pop();  
             if (st.empty()) right[i] = n;   
