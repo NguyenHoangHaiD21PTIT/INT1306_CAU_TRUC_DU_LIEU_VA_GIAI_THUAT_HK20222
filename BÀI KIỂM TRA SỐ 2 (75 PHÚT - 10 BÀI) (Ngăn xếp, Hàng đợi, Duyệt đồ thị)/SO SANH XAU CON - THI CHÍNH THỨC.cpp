@@ -5,7 +5,6 @@ int main() {
     string s;
     cin >> s;
     cout << s << endl;
-    s = " " + s;
     int q;
     cin >> q;
     int n = s.size();
