@@ -35,3 +35,6 @@ int main(){
         cout<<sum<<endl;
     }
 }
+/*Nếu xong bài này thì có thể luyện tập tiếp 2 bài sau trên Leetcode:
+Bài 1: 907. SUM OF SUB ARRAY MINUMUMS https://leetcode.com/problems/sum-of-subarray-minimums/description/?envType=daily-question&envId=2024-01-20
+Bài 2: 2104. SUM OF SUBARRAY RANGES https://leetcode.com/problems/sum-of-subarray-ranges/ */
