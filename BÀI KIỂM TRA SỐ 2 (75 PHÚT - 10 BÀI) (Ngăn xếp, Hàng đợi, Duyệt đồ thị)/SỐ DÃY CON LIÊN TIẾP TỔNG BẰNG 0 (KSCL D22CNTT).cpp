@@ -17,3 +17,5 @@ int main() {
     }
     cout << cnt;
 }
+//Link test: http://csloj.ddns.net/problem/844
+//Luyện tập: http://qboj.zapto.org/problem/sumek
