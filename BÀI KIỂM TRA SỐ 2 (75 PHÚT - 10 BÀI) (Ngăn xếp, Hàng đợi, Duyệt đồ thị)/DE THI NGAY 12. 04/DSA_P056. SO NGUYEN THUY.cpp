@@ -7,8 +7,8 @@ vector<string>v;
 
 void gen() {
 	queue<string>q;
-	q.push("6");
-	q.push("8");
+	q.push("4");
+	q.push("5");
 	while (1) {
 		//Lấy đỉnh qe
 		string top = q.front();
@@ -19,10 +19,10 @@ void gen() {
 		//Xâu mới được tạo thành từ xâu đầu và đảo xâu đó
 		string x = "";
 		x += top + tmp;
-		if (x != "68" && x != "86") v.push_back(x);
+		if (x != "45" && x != "54") v.push_back(x);
 		if (v.size() > 10000) break;
-		q.push(top + "6");
-		q.push(top + "8");
+		q.push(top + "4");
+		q.push(top + "5");
 	}
 }
 
