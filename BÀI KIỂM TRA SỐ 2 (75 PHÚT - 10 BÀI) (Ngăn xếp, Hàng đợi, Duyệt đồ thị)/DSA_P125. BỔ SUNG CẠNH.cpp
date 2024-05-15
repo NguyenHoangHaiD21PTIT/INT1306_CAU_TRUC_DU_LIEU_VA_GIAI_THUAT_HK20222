@@ -1,36 +1,48 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n,m, num[100001], parent[100001];
-void init(){
-	for(int i=1;i<=n;i++){
-		parent[i]=i;
-		num[i]=1;
-	}
+
+int par[100005], sze[100005];
+
+int find(int x){
+	if(x==par[x]) return x;
+	return par[x] = find(par[x]);
 }
-int Find(int u){
-	if(u != parent[u])
-		parent[u]=Find(parent[u]);
-		return parent[u];
+
+bool Union(int x, int y){
+	x = find(x);
+	y = find(y);
+	if(x==y) return false;
+	if(sze[x]<sze[y]) swap(x,y);
+	par[y] = x;
+	sze[x]+=sze[y];
+	return true;	
 }
-void Union(int u, int v){
-	int a=Find(u), b = Find(v);
-	if(a==b) return;
-	if(num[a] < num[b]) swap(a,b);
-	parent[b]=a;
-	num[a]+=num[b];
-}
+
 int main(){
-	int u,v,x,i,ans=0;
-	cin >> n >> m;
-	init();
-	while(m--){
-		cin >> u >> v;
-		Union(u,v);
+	int dinh, canh;
+    cin>>dinh>>canh;
+    //Make_set
+	for(int i=1;i<=dinh;i++){
+		par[i] = i;
+		sze[i] = 1;
 	}
-	int first = Find(1);
-	for(int i=1;i<=n;i++){
-		x=Find(i);
-		if(x != first) ans=max(ans,num[x]);
-	}
-	cout << ans+num[first] << endl;
+    while(canh--){
+        int dau, cuoi;
+        cin>>dau>>cuoi;
+        Union(dau, cuoi);
+    }
+    /*Idea: Nếu đồ thị liên thông thì số đỉnh tối đa đánh được là toàn bộ số đỉnh
+    Ngược lại: Ta sẽ đánh dấu toàn bộ số đỉnh thuộc thành phần liên thông mà 1 thuộc về
+    Xét các thành phần liên thông khác không chứa 1, ta chọn TPLT mà nhiều phần tử nhất
+    Ghép nó với TPLT chứa 1 thì sẽ ra TPLT chứa 1 nhiều ptu nhất
+    (2 thành phần liên thông muốn ghép với nhau thì chỉ cần 1 đoạn thẳng nối là đủ)
+    */
+    int daiDien1 = find(1);//Tìm đại diện TPLT 1 thuộc về
+    int ans = 0;//biến lưu số phần tử TPLT nhiều phần tử nhất
+    for(int i = 2;i<=dinh;i++){
+        int represent = find(i);//Tìm đại diện TPLT
+        //Nếu 1 không trong tập đấy
+        if(represent!=daiDien1) ans = max(ans, sze[represent]);
+    }
+    cout<<ans+sze[daiDien1];
 }
