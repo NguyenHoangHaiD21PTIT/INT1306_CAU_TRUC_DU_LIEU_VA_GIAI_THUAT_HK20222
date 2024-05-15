@@ -64,6 +64,7 @@ int main(){
                 res = x;
             }
         }
+        if(res.first > res.second) swap(res.first, res.second);
         cout<<res.first<<" "<<res.second<<endl;
     }
     return 0;
