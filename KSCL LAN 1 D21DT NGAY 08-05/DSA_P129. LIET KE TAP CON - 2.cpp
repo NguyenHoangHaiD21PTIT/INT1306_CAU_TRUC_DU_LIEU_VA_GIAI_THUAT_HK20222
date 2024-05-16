@@ -26,23 +26,16 @@ void sinh(){
 }
 
 int main(){
-	int n1;
-	cin>>n1;
-	cin>>k;
-	set<string>st;
-	vector<string>v;
-	while(n1--){
-		string s;
-		cin>>s;
-		if(st.find(s)==st.end()){
-            st.insert(s);
-            v.push_back(s);
-        }
-	}
- 	n = v.size();
+	cin>>n>>k;
 	kt();
 	ok=1;
     set<string>res;
+	vector<string>v;
+	for(int i = 0;i<n;i++){
+		string s;
+		cin>>s;
+		v.push_back(s);
+	}
 	while(ok==1){
         string tmp = "";
 		for(int i=0;i<k;i++){
@@ -54,3 +47,4 @@ int main(){
 	}
     for(string x: res) cout<<x<<endl;
 }
+
