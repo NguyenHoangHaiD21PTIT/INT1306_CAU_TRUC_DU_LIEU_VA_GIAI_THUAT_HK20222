@@ -47,3 +47,9 @@ int main(){
         }
     }
 }
+/*
+Hãy xét tất cả các cách thay thế các dấu hỏi bới các số 0 và 1
+Input:
+1
+1?? 0?101
+*/
