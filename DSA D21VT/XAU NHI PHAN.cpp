@@ -44,3 +44,10 @@ int main(){
         cout<<endl;
     }
 }
+/*In ra các xâu nhị phân mà có độ dài n, chuỗi con 01 xuất hiện đúng 2 lần
+Input:
+1
+4
+Output:
+0101
+*/
