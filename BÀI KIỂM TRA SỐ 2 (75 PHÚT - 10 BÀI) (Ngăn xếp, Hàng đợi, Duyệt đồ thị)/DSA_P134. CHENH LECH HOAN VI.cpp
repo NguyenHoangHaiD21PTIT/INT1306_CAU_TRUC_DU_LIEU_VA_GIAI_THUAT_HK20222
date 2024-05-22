@@ -15,7 +15,7 @@ int main(){
 	while(next_permutation(a, a+n)){
 		int tong = 0;
 		for(int i = 0;i<n - 1;i++) tong+=a[i] - a[i + 1];
-		if(tong<0){
+		if(tong>0){
 			for(int i = 0;i<n;i++) cout<<a[i]<<" ";
 			cout<<endl;
 		}
