@@ -13,3 +13,4 @@ int main(){
     for(int i =0;i<n - k;i++) sum+=abs(v[i] - v[i + k]);
     cout<<sum<<endl;
 }
+//BÀI NÀY mới 4/10
