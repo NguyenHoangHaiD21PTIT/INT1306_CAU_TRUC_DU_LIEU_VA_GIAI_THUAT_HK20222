@@ -35,13 +35,13 @@ int main(){
     cin>>n;
     kt();
     ok = 1;
+    int cnt = 0;
     while(ok==1){
-        int tong = 0;
-        for(int i = 0;i<n;i++) tong+=a[i] * pow(2, n - i - 1);
-        if(find(f, 92, tong)){
+        if(find(f, 92, cnt)){
             for(int i = 0;i<n;i++) cout<<a[i]<<" ";
             cout<<endl;
         }
+        cnt++;
         sinh();
     }
 }
