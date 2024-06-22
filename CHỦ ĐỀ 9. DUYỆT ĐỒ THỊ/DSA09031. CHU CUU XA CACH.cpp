@@ -26,7 +26,6 @@ void BFS(int x, int y) {
     tplt[x][y] = soTplt;
 
     while (!q.empty()) {
-        //auto [cx, cy] = q.front(); q.pop();
         pair<int, int>p = q.front(); 
         q.pop();
         int cx = p.first, cy = p.second;
