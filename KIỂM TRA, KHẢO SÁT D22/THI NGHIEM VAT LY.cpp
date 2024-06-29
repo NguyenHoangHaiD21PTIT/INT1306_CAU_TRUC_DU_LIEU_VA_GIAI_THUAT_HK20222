@@ -37,18 +37,25 @@ int main() {
     dis[startKey] = 0;
 
     while (!q.empty()) {
-        auto [x, y] = q.front();
+        pair<int, int> front = q.front();
+        int x = front.first;
+        int y = front.second;
         q.pop();
-        string scurPoint = makeKey(x, y);//Chuyển điểm thành string
-        int currentDist = dis[scurPoint];//Số bước đến điểm
-        if (x==enX&&y==enY){
+        
+        string scurPoint = makeKey(x, y); // Chuyển điểm thành string
+        int currentDist = dis[scurPoint]; // Số bước đến điểm
+        
+        if (x == enX && y == enY) {
             check = 1;
-            cout<< currentDist -1;//cắt đi điểm cuối, chỉ giữ các điểm ở giữa 2 điểm đường đi
+            cout << currentDist - 1 << endl; // cắt đi điểm cuối, chỉ giữ các điểm ở giữa 2 điểm đường đi
             break;
         }
+        
         // Duyệt các điểm chung hoành độ
-        for (auto [nx, ny] : mpX[x]) {
-            string nextKey = makeKey(nx, ny);//Tạo string cho điểm
+        for (pair<int, int>& p : mpX[x]) {
+            int nx = p.first;
+            int ny = p.second;
+            string nextKey = makeKey(nx, ny); // Tạo string cho điểm
             if (!visited[nextKey]) {
                 q.push({nx, ny});
                 visited[nextKey] = true;
@@ -57,8 +64,10 @@ int main() {
         }
 
         // Duyệt các điểm chung tung độ
-        for (auto [nx, ny] : mpY[y]) {
-            string nextKey = makeKey(nx, ny);//Tạo string cho điểm
+        for (pair<int, int>& p : mpY[y]) {
+            int nx = p.first;
+            int ny = p.second;
+            string nextKey = makeKey(nx, ny); // Tạo string cho điểm
             if (!visited[nextKey]) {
                 q.push({nx, ny});
                 visited[nextKey] = true;
@@ -67,5 +76,9 @@ int main() {
         }
     }
 
-    if(!check) cout<<-1<<endl;
+    if (!check) {
+        cout << -1 << endl;
+    }
+
+    return 0;
 }
