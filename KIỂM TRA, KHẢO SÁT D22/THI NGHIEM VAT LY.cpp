@@ -43,11 +43,11 @@ int main() {
         q.pop();
         
         string scurPoint = makeKey(x, y); // Chuyển điểm thành string
-        int currentDist = dis[scurPoint]; // Số bước đến điểm
+        int currentDist = dis[scurPoint]; // Số lần đổi hướng để đến được điểm
         
         if (x == enX && y == enY) {
             check = 1;
-            cout << currentDist - 1 << endl; // cắt đi điểm cuối, chỉ giữ các điểm ở giữa 2 điểm đường đi
+            cout << currentDist << endl;
             break;
         }
         
@@ -56,7 +56,10 @@ int main() {
             int nx = p.first;
             int ny = p.second;
             string nextKey = makeKey(nx, ny); // Tạo string cho điểm
-            if (!visited[nextKey]) {
+            if (nx == enX && ny == enY) {
+                cout << currentDist << endl;
+                return 0;
+            } else if (!visited[nextKey]) {
                 q.push({nx, ny});
                 visited[nextKey] = true;
                 dis[nextKey] = currentDist + 1;
@@ -68,7 +71,10 @@ int main() {
             int nx = p.first;
             int ny = p.second;
             string nextKey = makeKey(nx, ny); // Tạo string cho điểm
-            if (!visited[nextKey]) {
+            if (nx == enX && ny == enY) {
+                cout << currentDist << endl;
+                return 0;
+            } else if (!visited[nextKey]) {
                 q.push({nx, ny});
                 visited[nextKey] = true;
                 dis[nextKey] = currentDist + 1;
@@ -82,3 +88,10 @@ int main() {
 
     return 0;
 }
+/*
+4 0 0 9 3
+1 7
+0 3
+3 0
+3 3
+*/
