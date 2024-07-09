@@ -6,8 +6,8 @@ long long f[50], cnt[50];
 void gen(){
 	f[0]=1;
 	f[1]=1;
-	cnt[0]=1;
-	cnt[1]=0;
+	cnt[0]=0;
+	cnt[1]=1;
 	for(int i=2;i<=50;i++){
 		f[i] = f[i-1]+f[i-2];
 		cnt[i]=cnt[i-1] + cnt[i-2];
@@ -15,12 +15,12 @@ void gen(){
 }
 
 long long count(long long n, long long k){
-	if(n==0) return 1;
-	if(n==1) return 0;
-	if(k<=f[n-2]){
-		return count(n-2,k);
+	if(n==0) return 0;
+	if(n==1) return 1;
+	if(k<=f[n-1]){
+		return count(n-1,k);
 	} else {
-		return cnt[n-2] + count(n-1,k-f[n-2]);
+		return cnt[n-1] + count(n-2,k-f[n-1]);
 	}
 }
 
