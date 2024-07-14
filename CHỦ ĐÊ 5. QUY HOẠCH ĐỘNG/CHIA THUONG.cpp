@@ -4,6 +4,8 @@
 Đề bài: Có bao nhiêu cách chia (pt) phần thưởng cho (hs) học sinh được đánh số thứ tự từ 1 đến hs sao cho học sinh 
 có stt xếp đầu luôn nhận không ít hơn bạn STT sau mình
 
+Link nộp: https://nbkcs.ucode.vn/problems/nbkcsdp01-chia-phan-thuong-award-155585
+
 Bài giải:
 f[i][j]: Số cách chia i phần thưởng cho j học sinh:
 1. Không có học sinh: Không có cách chia nào: f[i][0] = 0
