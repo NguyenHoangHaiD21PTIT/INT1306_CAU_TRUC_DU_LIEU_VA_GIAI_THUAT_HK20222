@@ -7,7 +7,6 @@ int main(){
 	cin.ignore();
 	while(t--){
 		string s;
-		cin>>s;
 		getline(cin, s);
 		int cnt = 1;
 		stack<int>st;
