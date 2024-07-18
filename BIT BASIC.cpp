@@ -46,3 +46,4 @@ int main() {
         }
     }
 }
+//https://lqdoj.edu.vn/problem/querysum
