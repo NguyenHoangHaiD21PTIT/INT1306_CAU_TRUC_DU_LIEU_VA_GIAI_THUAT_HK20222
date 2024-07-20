@@ -3,8 +3,6 @@ using namespace std;
 long long f[35][35];
 
 void prepare(){
-    // f[0][0]=0;
-    // f[0][1]=f[1][0]=1;
     for(int i=0;i<=30;i++){
         for(int j=0;j<=30;j++){
             if(i==0)f[i][j]=1;
@@ -16,7 +14,6 @@ void prepare(){
 int main(){
     prepare();
     int t; cin>>t;
-    cout<<f[1][1]<<endl;
     while(t--){
         int n; cin>>n;
         cout<<f[n][0]<<endl;
