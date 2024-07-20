@@ -20,7 +20,7 @@ int main() {
         }
     }
     
-    // Sắp xếp chẵn giảm lẻ tăng
+    // Sắp xếp chẵn TĂNG lẻ giảm
     sort(chan.begin(), chan.end());
     sort(le.begin(), le.end(), greater<int>());
     
