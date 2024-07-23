@@ -23,8 +23,9 @@ int main(){
     ok = 1;
     int cnt = 1;
     while(ok==1){
-        if(cnt%2){
-            for(int i = 1;i<=n;i++) cout << char('A' + a[i] - 1);
+        if(cnt%2==0){
+            cout<<cnt<<": ";
+            for(int i = 1;i<=n;i++) cout << a[i] - 1;
             cout<<endl;
         }
         cnt++;
