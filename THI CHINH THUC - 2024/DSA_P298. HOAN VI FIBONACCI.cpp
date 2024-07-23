@@ -19,21 +19,16 @@ int main(){
 	cin>>n;
 	int a[n];
 	for(int i = 0;i<n;i++) a[i] = i + 1;
+	cout<<"1: ";
 	for(int x: a) cout<<x<<" ";
 	cout<<endl;
 	while(next_permutation(a, a + n)){
 		cnt++;
 		if(find(f, 92, cnt)){
+			cout<<cnt<<": ";
 			for(int x: a) cout<<x<<" ";
 			cout<<endl;
 		}
 	}
 		
 }
-// 1: 1 2 3 4 
-// 2: 1 2 4 3 
-// 3: 1 3 2 4 
-// 5: 1 4 2 3 
-// 8: 2 1 4 3 
-// 13: 3 1 2 4 
-// 21: 4 2 1 3
