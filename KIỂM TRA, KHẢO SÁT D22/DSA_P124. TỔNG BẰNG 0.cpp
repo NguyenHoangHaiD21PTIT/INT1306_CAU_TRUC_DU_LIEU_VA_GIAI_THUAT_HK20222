@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main() {
-    int n, cnt = 0;
+    int n; long long cnt = 0;
     cin >> n;
     int a[n + 5];
     for(int i = 1; i <= n; i++) {
