@@ -30,7 +30,7 @@ int main(){
         }
         long sum = 0;
         for (int i = 0; i < n; i++) {
-            sum += (arr[i]) * (i - left[i]) * (right[i] - i);
+            sum += (long long) (arr[i]) * (i - left[i]) * (right[i] - i);
         }
         cout<<sum<<endl;
     }
