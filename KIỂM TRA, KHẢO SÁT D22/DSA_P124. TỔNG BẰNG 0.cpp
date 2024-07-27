@@ -10,7 +10,7 @@ int main() {
     long long sum = 0;
     for(int i = 1; i <= n; i++) {
         sum += a[i];
-        if(mp.find(sum) != mp.end()) cnt += mp[sum];
+        cnt += mp[sum];
         mp[sum]++;
     }
     cout << cnt;
