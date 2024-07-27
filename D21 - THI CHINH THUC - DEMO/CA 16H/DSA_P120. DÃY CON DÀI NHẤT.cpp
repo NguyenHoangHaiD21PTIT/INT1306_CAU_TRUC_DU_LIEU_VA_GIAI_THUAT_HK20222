@@ -21,5 +21,4 @@ int main(){
         }
     }
     cout <<ans;
-
 }
