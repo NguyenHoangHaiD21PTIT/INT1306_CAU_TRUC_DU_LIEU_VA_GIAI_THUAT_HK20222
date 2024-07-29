@@ -1,38 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-using ll = long long;
-int main()
-{
-	ll n, k;
+int main(){
+	long long n, k;
 	cin >> n >> k;
-	priority_queue<ll, vector<ll>, greater<ll>>pq;
+	priority_queue<long long, vector<long long>, greater<long long>>pq;
 	for (int i = 0; i < n; i++) {
-		ll x;
+		long long x;
 		cin >> x;
 		pq.push(x);
 	}
-	ll tmp = k;
-	ll tien = 0;
+	long long tmp, tien = 0;
 	while (pq.size() > 1) {
-		ll sum = 0, lon = 0, nho = 0;
-		if (pq.size() >= k) {
-			while (tmp--) {
-				if (tmp == k - 1) nho = pq.top();
-				if (tmp == 0) lon = pq.top();
-				sum += pq.top();
-				pq.pop();
-			}
-		} else {
-			ll sz = pq.size();
-			while (!pq.empty()) {
-				if (pq.size() == sz) nho = pq.top();
-				if (pq.size() == 1) lon = pq.top();
-				sum += pq.top();
-				pq.pop();
-			}
+		long long sum = 0, lon = 0, nho = 0, x = pq.size();
+		tmp = min(k, x);
+		for(int i = 1;i<=tmp;i++){
+			sum+=pq.top();
+			if(i==1) nho = pq.top();
+			if(i==tmp) lon = pq.top();
+			pq.pop();
 		}
-		tmp = k;
 		tien += lon - nho;
 		pq.push(sum);
 	}
