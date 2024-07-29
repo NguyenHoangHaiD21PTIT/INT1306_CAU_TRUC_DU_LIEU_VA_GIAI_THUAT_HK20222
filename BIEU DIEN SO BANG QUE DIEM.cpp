@@ -12,7 +12,7 @@ int main() {
     for (int i = 1; i <= n; i++) { // Số que diêm
         for (int x : a) { // Số được sử dụng
             int queDiem = soQue[x];//Số que diêm để biểu diễn số x
-            if (i >= queDiem && (i == queDiem || dp[i - queDiem]!="")) { // Nếu có đủ que diêm để tạo ra chữ số này và có thể tạo số mới
+            if (i >= queDiem) { // Nếu có đủ que diêm để tạo ra chữ số này và có thể tạo số mới
                 string soMoi = to_string(x) + dp[i - queDiem];
                 if (dp[i].empty() || soMoi.size() > dp[i].size() || (soMoi.size() == dp[i].size() && soMoi > dp[i])) dp[i] = soMoi;
             }
