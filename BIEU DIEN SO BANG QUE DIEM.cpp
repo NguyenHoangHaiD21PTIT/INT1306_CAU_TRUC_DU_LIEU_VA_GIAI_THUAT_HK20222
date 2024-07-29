@@ -1,42 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//Lưu số que diêm cần thiết để tạo ra từng số
-vector<int> queDiems = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6};
-
-string soLonNhat(int N, const vector<int>& M) {
-    vector<string> dp(N + 1, "");//dp[i]: Số lớn nhất có thể tạo từ i que diêm
-
-    // 1. Sắp xếp các chữ số trong M theo thứ tự giảm dần
-    vector<int> sortedM = M;
-    sort(sortedM.begin(), sortedM.end(), greater<int>());
-
-    for (int i = 1; i <= N; ++i) { //Xét từng số que diêm
-        for (int so : sortedM) { 
-            int queDiem = queDiems[so];
-            if (i >= queDiem) {// Nếu có đủ que diêm để tạo ra chữ số này
-                if (i == queDiem || !dp[i - queDiem].empty()) {// Kiểm tra nếu có thể tạo ra số với số lượng que diêm hiện tại
-                    string newNumber = to_string(so) + dp[i - queDiem];
-                    // Cập nhật số lớn nhất cho dp[i]
-                    if (dp[i].empty()) dp[i] = newNumber;
-                    else {
-                        if (newNumber.size() > dp[i].size()) dp[i] = newNumber;
-                        else if (newNumber.size() == dp[i].size()) {
-                            if (newNumber > dp[i]) dp[i] = newNumber;
-                        }
-                    }
-                }
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(m);
+    vector<int> soQue = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6}; // soQue[i] = j: Biểu diễn số i cần j que diêm
+    for (int i = 0; i < m; i++) cin >> a[i]; // Vector các số được sử dụng
+    sort(a.begin(), a.end(), greater<int>());
+    vector<string> dp(n + 1, "");
+    for (int i = 1; i <= n; i++) { // Số que diêm
+        for (int x : a) { // Số được sử dụng
+            int queDiem = soQue[x];//Số que diêm để biểu diễn số x
+            if (i >= queDiem && (i == queDiem || dp[i - queDiem]!="")) { // Nếu có đủ que diêm để tạo ra chữ số này và có thể tạo số mới
+                string soMoi = to_string(x) + dp[i - queDiem];
+                if (dp[i].empty() || soMoi.size() > dp[i].size() || (soMoi.size() == dp[i].size() && soMoi > dp[i])) dp[i] = soMoi;
             }
         }
     }
-    return dp[N];
-}
-
-int main() {
-    int N, M_size;
-    cin >> N >> M_size;
-    vector<int> M(M_size);
-    for (int i = 0; i < M_size; ++i) cin >> M[i];
-    cout << soLonNhat(N, M) << endl;
-    return 0;
+    cout << dp[n] << endl;
 }
