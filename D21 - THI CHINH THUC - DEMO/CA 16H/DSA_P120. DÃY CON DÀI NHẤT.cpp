@@ -1,10 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 int main(){
     int n,m;
     cin >> n >> m;
-    ll a[n+5]; ll b[m+5];
+    long long a[n+5]; ll b[m+5];
     int dp[n+5][m+5];
     for(int i=1;i<=n;i++) cin >> a[i];
     for(int i=1;i<=m;i++) cin >> b[i];
