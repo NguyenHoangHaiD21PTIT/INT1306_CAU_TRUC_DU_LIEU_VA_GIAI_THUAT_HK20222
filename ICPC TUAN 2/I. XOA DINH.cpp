@@ -51,8 +51,8 @@ int main() {
                 }
             }
         }
-        if(components==1) result[i]=="YES";
-        else result[i]=="NO";
+        if(components==1) result[i]="YES";
+        else result[i]="NO";
     }
     for (int i = 0; i < n; ++i) cout << result[i] << "\n";
 }
