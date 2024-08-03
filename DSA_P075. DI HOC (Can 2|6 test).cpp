@@ -2,18 +2,24 @@
 using namespace std;
 
 const long long INF = 1e18;
-vector<long long> dijkstra(long long start, vector<vector<pair<long long, long long>>>& graph, long long N) {
+
+// Thực hiện thuật toán Dijkstra từ đỉnh x tới mọi đỉnh
+vector<long long> Dijkstra(long long start, vector<vector<pair<long long, long long>>>& graph, long long N) {
     vector<long long> dist(N + 1, INF);
+    dist[start] = 0;
+    
+    // pq: Lưu {d[v], v}
     priority_queue<pair<long long, long long>, vector<pair<long long, long long>>, greater<pair<long long, long long>>> pq;
     pq.push({0, start});
-    dist[start] = 0;
-
+    
     while (!pq.empty()) {
-        long long d = pq.top().first;
-        long long u = pq.top().second;
+        // Mỗi bước, lấy ra đỉnh chưa xét mà có d min, gọi là đỉnh u
+        pair<long long, long long> p = pq.top();
+        long long d = p.first, u = p.second;
         pq.pop();
-        if (d > dist[u]) continue;
-        for (auto& edge : graph[u]) {
+
+        // Xét các đỉnh kề với u
+        for (auto edge : graph[u]) {
             long long v = edge.first;
             long long w = edge.second;
             if (dist[u] + w < dist[v]) {
@@ -41,10 +47,12 @@ int main() {
             graph[u].push_back({v, c});
             graph[v].push_back({u, c});
         }
-        auto dist_H1 = dijkstra(H1, graph, N);
-        auto dist_S1 = dijkstra(S1, graph, N);
-        auto dist_H2 = dijkstra(H2, graph, N);
-        auto dist_S2 = dijkstra(S2, graph, N);
+        
+        // Thực hiện thuật toán Dijkstra từ 4 đỉnh H1, S1, H2, S2
+        auto dist_H1 = Dijkstra(H1, graph, N);
+        auto dist_S1 = Dijkstra(S1, graph, N);
+        auto dist_H2 = Dijkstra(H2, graph, N);
+        auto dist_S2 = Dijkstra(S2, graph, N);
 
         long long d_H1_S1 = dist_H1[S1];
         long long d_H2_S2 = dist_H2[S2];
@@ -64,7 +72,6 @@ int main() {
         }
     }
 }
-
 
 
 
