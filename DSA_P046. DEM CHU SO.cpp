@@ -4,7 +4,7 @@ using namespace std;
 long long f(int x, long long n) {
     long long ret = 0;
     for (int i = 0; ; ++i) {
-        long long m = 1LL << i; // 10^i
+        long long m = pow(10, i);
         if (m > n) break;
         long long a = n / m;
         long long b = n % m;
