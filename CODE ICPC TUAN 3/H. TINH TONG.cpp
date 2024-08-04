@@ -20,7 +20,7 @@ int main() {
         if (!st.empty()) L[i] = st.top();
         st.push(i);
     }
-    int sum = 0;
+    long long sum = 0;
     for (int i = 1; i <= n; i++) {
         if (L[i] == 0 && R[i] == n + 1) continue;
         int far = L[i] - 1;
