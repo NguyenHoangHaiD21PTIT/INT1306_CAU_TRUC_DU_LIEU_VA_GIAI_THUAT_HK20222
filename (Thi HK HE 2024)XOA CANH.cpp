@@ -54,3 +54,4 @@ int main(){
 	reverse(ans.begin(), ans.end());
 	for(int x: ans) cout<<x<<endl;
 }
+//Link test: https://marisaoj.com/problem/137
