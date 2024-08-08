@@ -45,3 +45,4 @@ int main() {
     }
     return 0;
 }
+//Ghi nhớ: GCD(F(a), F(b)) = F(GCD(a, b))
