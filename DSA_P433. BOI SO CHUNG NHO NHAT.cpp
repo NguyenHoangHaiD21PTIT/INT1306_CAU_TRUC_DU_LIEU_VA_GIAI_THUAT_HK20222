@@ -38,8 +38,8 @@ int main() {
         long long ans = 1;
         //Phân tích b! ra thừa số nguyên tố: Tức là, xem mỗi số nguyên tố xuất hiện trong b! bao nhiêu lần
         //Dùng Legendre
-        //Phân tích (a - 1)! ra thừa số nguyên tố: Tức là, xem mỗi số nguyên tố xuất hiện trong b! bao nhiêu lần
-        //Lấy b! chia cho (a - 1)! là xong phân tích TSNT
+        //Phân tích (a - 1)! ra thừa số nguyên tố: Tức là, xem mỗi số nguyên tố xuất hiện trong (a - 1)! bao nhiêu lần
+        //Lấy b! chia cho (a - 1)! là xong phân tích TSNT, lúc này, ta đã có thừa số và số mũ tương ứng
         for (long long x : primes) {
             if (x > b) break;
             long long d1 = dem(b, x);
