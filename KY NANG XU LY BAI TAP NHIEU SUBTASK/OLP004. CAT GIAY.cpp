@@ -18,6 +18,10 @@ int main() {
     int res = 0; // Kết quả tối ưu
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
+            //Với mỗi ô (i, j). Ta sẽ xét các ma trận con có góc phải dưới là ô này. Chặt nhị phân theo kích thước của ma trận vuông
+            //Trong bài làm này ta sẽ lấy chiều dài cạnh + 1
+            //Cạnh to nhất cũng chỉ được phép là min(i, j). VD (i, j) = (4, 3) thì 3 - x + 1>=1-->x<=3
+            //Đương nhiên để chia hết cho edge, thì tối thiểu phải là edge. 
             int k = 0;
             int d = max(res, edge - 1);
             int c = min(i, j) - 1;
