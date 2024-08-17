@@ -21,7 +21,7 @@ int main() {
             if (a[s[i]] == 1) x++;
             if (x == k) {
                 while (a[s[st]] > 1) {
-                    a[s[st]] = a[s[st]] - 1;
+                    a[s[st]]--;
                     st++;
                 }
                 ans = min(ans, i - st + 1);
