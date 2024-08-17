@@ -18,15 +18,12 @@ void Try(int i, int j, int n, int k, vector<int> &vt) {
     }
 }
 
-void solve() {
+int main() {
     int n, k;
     cin >> n >> k;
     vector<int> vt;
     Try(1, 1, n, k, vt);
 }
 
-int main() {
-    solve();
-    return 0;
-}
+
 
