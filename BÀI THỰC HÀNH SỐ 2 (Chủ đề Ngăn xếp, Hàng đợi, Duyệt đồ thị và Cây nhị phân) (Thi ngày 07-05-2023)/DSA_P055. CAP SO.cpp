@@ -25,10 +25,8 @@ int main() {
     cin >> n;
     vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
-
     stack<int> st, st1;
     int l[n], r[n];
-
     // Phần tử bên trái đầu tiên lớn hơn
     for (int i = 0; i < n; i++) {
         while (!st.empty() && a[st.top()] <= a[i]) st.pop();
@@ -36,7 +34,6 @@ int main() {
         else l[i] = st.top();
         st.push(i);
     }
-
     // Phần tử bên phải đầu tiên lớn hơn
     for (int i = n - 1; i >= 0; i--) {
         while (!st1.empty() && a[st1.top()] <= a[i]) st1.pop();
@@ -54,24 +51,18 @@ int main() {
     //first[a[i]]: Chỉ số đầu tiên bắt đầu xét trong mảng m[a[i]]
     int first[z.size() + 1] = {};
     vector<vector<int>> m(z.size());
-
     for (int i = 0; i < n; i++) {
         int pos = lower_bound(z, 0, a[i]);//Tìm vị trí phần tử a[i] trong mảng z
         a[i] = pos;
         m[a[i]].push_back(i);
     }
-
     long long res = 0;
     for (int i = 0; i < n; i++) {
         if (l[i] != -1) res+= 1;
         if (r[i] != n) res+= 1;
-
         int x = cnt(m[a[i]], first[a[i]], r[i] - 1);
         res += (x - 1) * x / 2;
-
         first[a[i]] += x;
     }
-
-    cout << res << endl;
-    return 0;
+    cout << res;
 }
