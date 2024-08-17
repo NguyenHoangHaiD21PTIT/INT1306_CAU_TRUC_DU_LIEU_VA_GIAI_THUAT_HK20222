@@ -5,7 +5,7 @@ int main() {
     int n, x, y, z;
     cin >> n >> x >> y >> z;
     vector<pair<int, int>> luong(n);  // Lưu khoảng lương của mỗi nhân viên
-    set<int> mucLuong;  // Để lưu tất cả các mức lương khả dĩ 
+    set<int> mucLuong;  // Để lưu tất cả các mức lương 
     for (int i = 0; i < n; ++i) {
         cin >> luong[i].first >> luong[i].second;
         mucLuong.insert(luong[i].first);
