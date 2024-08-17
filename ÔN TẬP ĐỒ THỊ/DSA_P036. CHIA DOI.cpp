@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 long long f[35][35];
-
+//f[i][j]: Số cách ăn hết i thanh nguyên và j nửa thanh
 void prepare(){
     for(int i=0;i<=30;i++){
         for(int j=0;j<=30;j++){
