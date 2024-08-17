@@ -14,7 +14,7 @@ void gen(){ //cnt[i]: Số ký tự A trong xâu thứ i, f[i]: Độ dài xâu 
 	}
 }
 
-long long count(long long n, long long k){ 
+long long count(long long n, long long k){ //count(n, k): Đếm số ký tự A trong k vị trí đầu tiên của xâu thứ n
 	if(n==0) return 1;
 	if(n==1) return 0;
 	if(k<=f[n-1]) return count(n-1,k);
