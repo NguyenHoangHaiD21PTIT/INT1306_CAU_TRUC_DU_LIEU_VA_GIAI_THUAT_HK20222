@@ -19,26 +19,23 @@ int main() {
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
             //Với mỗi ô (i, j). Ta sẽ xét các ma trận con có góc phải dưới là ô này. Chặt nhị phân theo kích thước của ma trận vuông
-            //Trong bài làm này ta sẽ lấy chiều dài cạnh + 1
             //Cạnh to nhất cũng chỉ được phép là min(i, j). VD (i, j) = (4, 3) thì 3 - x + 1>=1-->x<=3
             //Đương nhiên để chia hết cho edge, thì tối thiểu phải là edge. 
-            int k = 0;
-            int d = max(res, edge - 1);
-            int c = min(i, j) - 1;
+            int d = max(res, edge);
+            int c = min(i, j);
             // Tìm kích thước ma trận vuông tối đa có thể với tổng <= e
             while (d <= c) {
                 int mid = (d + c) / 2;
-                int x = i - mid;
-                int y = j - mid;
+                int x = i - mid + 1;
+                int y = j - mid + 1;
                 int sum = t[i][j] - t[i][y - 1] - t[x - 1][j] + t[x - 1][y - 1];
                 if (sum <= e) {
-                    k = mid + 1;
+                    res = max(res, mid);
                     d = mid + 1;
                 } else {
                     c = mid - 1;
                 }
             }
-            if (k) res = max(res, (k / edge) * edge);
         }
     }
     cout<<res;
