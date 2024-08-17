@@ -12,7 +12,7 @@ string minNum(long long p){
             }
         }
     }
-    if(p==-1) return "-1";
+    if(p!=-1) return "-1";
     else{
         string res = "";
         for(int x: v) res+=to_string(x);
