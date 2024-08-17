@@ -61,7 +61,7 @@ int main() {
         if (l[i] != -1) res+= 1;
         if (r[i] != n) res+= 1;
         int x = cnt(m[a[i]], first[a[i]], r[i] - 1);
-        res += (x - 1) * x / 2;
+        res += (long long) (x - 1) * x / 2;
         first[a[i]] += x;
     }
     cout << res;
