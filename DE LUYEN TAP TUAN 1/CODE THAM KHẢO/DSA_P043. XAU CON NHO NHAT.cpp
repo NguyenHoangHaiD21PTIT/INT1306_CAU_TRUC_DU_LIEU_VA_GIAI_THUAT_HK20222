@@ -1,13 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 int main() {
     int t;
     cin >> t;
     while (t--) {
         string s;
         cin >> s;
-        int n = s.size(), k = 0, st = 0, ans = INT_MAX, x = 0, a[256] = {};//st: start: điểm bắt đầu xâu con
+        int n = s.size(), k = 0, st = 0, ans = INT_MAX, x = 0, a[256] = {};//st: start: điểm bắt đầu xâu con, x: số ký tự phân biệt trong xâu khi xét đến index i
         if (n == 1) {
             cout << 1 << endl;
             continue;
@@ -30,5 +29,4 @@ int main() {
         }
         cout << ans << endl;
     }
-    return 0;
 }
