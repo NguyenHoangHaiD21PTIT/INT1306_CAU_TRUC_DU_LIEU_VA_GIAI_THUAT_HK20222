@@ -4,9 +4,10 @@ using namespace std;
 int main() {
     int n, k;
     cin >> n >> k;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++) cin >> a[i];
-    long long tong = accumulate(a.begin(), a.end(), 0LL); 
+    int a[n+5];
+    for (int i = 1; i <= n; i++) cin >> a[i];
+    int tong = 0; 
+    for(int i = 1;i<=n;i++) tong+=a[i];
     vector<int> uoc;
     for (int i = 1; i * i <= tong; i++) {
         if (tong % i == 0) {
@@ -14,14 +15,21 @@ int main() {
             if (i * i != tong) uoc.push_back(tong / i);
         }
     }
-    sort(uoc.rbegin(), uoc.rend()); // Sắp xếp các ước số theo thứ tự giảm dần
+    sort(uoc.begin(), uoc.end(), greater<int>()); // Sắp xếp các ước số theo thứ tự giảm dần
+    pair<int, int>v[n + 2];
     for (int x : uoc) {
-        long long cnt = 0;
-        for (int y : a) cnt += min(y % x, x - y % x);
-        if (cnt <= k) {
-            cout << x << endl; 
-            return 0; 
+        for(int i = 1;i<=n;i++) v[i] = {a[i]%x, x - (a[i]%x)};
+        sort(v + 1,v + n + 1);
+        int du[500] = {}, thieu[500] = {};
+        for(int i = 1;i<=n;i++){
+            du[i] = du[i - 1] + v[i].first;
+            thieu[i] = thieu[i - 1] + v[i].second;
+        }
+        for(int i = 1;i<=n;i++){
+            if(du[i]==thieu[n]-thieu[i]&&du[i]<=k){
+                cout<<x;
+                return 0;
+            }
         }
     }
-    return 0;
 }
