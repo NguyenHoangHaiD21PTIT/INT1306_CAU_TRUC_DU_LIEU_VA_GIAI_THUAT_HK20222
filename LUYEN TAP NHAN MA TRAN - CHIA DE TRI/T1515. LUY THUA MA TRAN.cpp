@@ -1,66 +1,69 @@
 #include <bits/stdc++.h>
 using namespace std;
+const long long MOD = 1e9 + 7;
+int n; 
 
-const int MOD = 1e9 + 7;
-typedef vector<vector<int>> Matrix;
+struct matrix {
+    long long a[25][25];
+};
 
-Matrix matrixMul(const Matrix &A, const Matrix &B, int n) {
-    Matrix C(n, vector<int>(n, 0));
-    for (int i = 0; i < n; i++){
-        for (int j = 0; j < n; j++){
-            for (int k = 0; k < n; k++) C[i][j] = (C[i][j] + 1LL * A[i][k] * B[k][j]) % MOD;
-        }
+matrix IM() {
+    matrix I;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) I.a[i][j] = (i == j) ? 1 : 0;
     }
-    return C;
-}
-
-Matrix matrixAdd(const Matrix &A, const Matrix &B, int n) {
-    Matrix C(n, vector<int>(n, 0));
-    for (int i = 0; i < n; i++){
-        for (int j = 0; j < n; j++) C[i][j] = (A[i][j] + B[i][j]) % MOD;
-    }
-    return C;
-}
-
-Matrix matrixPow(const Matrix &A, int k, int n) {
-    if (k == 1) return A;
-    if (k % 2 == 0) {
-        Matrix half = matrixPow(A, k / 2, n);
-        return matrixMul(half, half, n);
-    } else {
-        return matrixMul(A, matrixPow(A, k - 1, n), n);
-    }
-}
-
-//Tao ma tran don vi
-Matrix identityMatrix(int n) {
-    Matrix I(n, vector<int>(n, 0));
-    for (int i = 0; i < n; i++) I[i][i] = 1;
     return I;
 }
 
-Matrix B(int k, const Matrix &A, int n) {//B(k) = A + A^2 + ... + A^k
-    if (k == 1) return A;
-    Matrix halfB = B(k / 2, A, n); //B(k/2)
-    Matrix Ak2 = matrixPow(A, k / 2, n); //A^(k/2)
-    Matrix result = matrixMul(matrixAdd(identityMatrix(n), Ak2, n), halfB, n);//(I + A^(k/2))*B(k/2)
-    if (k % 2 != 0) {
-        Matrix Ak = matrixPow(A, k, n);//A^k
-        result = matrixAdd(result, Ak, n);
+// Hàm nhân 2 ma trận
+matrix mulMatrix(matrix A, matrix B) {
+    matrix ans;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            ans.a[i][j] = 0;
+            for (int k = 1; k <= n; k++) ans.a[i][j] = (ans.a[i][j] + A.a[i][k] * B.a[k][j]) % MOD;
+        }
     }
+    return ans;
+}
 
+matrix addMatrix(matrix A, matrix B) {
+    matrix ans;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) ans.a[i][j] = (A.a[i][j] + B.a[i][j]) % MOD;
+    }
+    return ans;
+}
+
+matrix powMod(matrix A, long long p) {
+    if (p == 1) return A;
+    if (p == 0) return IM();
+    matrix half = powMod(A, p / 2);
+    matrix ans = mulMatrix(half, half);
+    if (p % 2 != 0) ans = mulMatrix(ans, A);
+    return ans;
+}
+
+// Hàm tính B(k) = A + A^2 + ... + A^k
+matrix calcB(matrix A, int k) {
+    if (k == 1) return A;
+    matrix halfB = calcB(A, k / 2); // B(k/2)
+    matrix Ak2 = powMod(A, k / 2);  // A^(k/2)
+    matrix result = mulMatrix(addMatrix(IM(), Ak2), halfB);
+    if (k % 2 != 0) result = addMatrix(result, powMod(A, k));
     return result;
 }
 
 int main() {
-    int n, k;
+    int k;
     cin >> n >> k;
-    Matrix A(n, vector<int>(n));
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++) cin >> A[i][j];
-    Matrix result = B(k, A, n);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) cout << result[i][j] << " ";
+    matrix A;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) cin >> A.a[i][j];
+    }
+    matrix result = calcB(A, k);
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) cout << result.a[i][j] << " ";
         cout << endl;
     }
 }
