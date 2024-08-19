@@ -1,50 +1,61 @@
-#include<iostream>
+#include <iostream>
+#include <vector>
 using namespace std;
-typedef long long ll;
-ll MOD = 1000000000000007;
-ll M[5] = { 1,3,6,12,23 };
-struct matran {
-	ll f[4][4] = {
-		{1,0,0,0},
-		{0,1,1,0},
-		{1,1,0,1},
-		{0,1,0,0}};
+
+const long long MOD = 1e12 + 19;
+long long n;
+
+struct matrix {
+    long long a[5][5]; 
 };
-ll Mul(ll a, ll b) {
-	if (b <= 1)return a%MOD * b;
-	ll tmp = Mul(a, b / 2);
-	if (b % 2 == 0)return tmp % MOD + tmp % MOD;
-	else return tmp % MOD + tmp % MOD + a % MOD;
+
+
+matrix mulMatrix(matrix A, matrix B) {
+    matrix ans;
+    for (int i = 1; i <= 4; i++) {
+        for (int j = 1; j <= 4; j++) ans.a[i][j] = 0;
+    }
+    for (int i = 1; i <= 4; i++) {
+        for (int j = 1; j <= 4; j++) {
+            for (int k = 1; k <= 4; k++) ans.a[i][j] = (ans.a[i][j] + A.a[i][k] * B.a[k][j]) % MOD;
+        }
+    }
+    return ans;
 }
-matran operator*(matran A, matran B) {
-	matran C;
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			C.f[i][j] = 0;
-			for (int k = 0; k < 4; k++) {
-				C.f[i][j] = C.f[i][j] % MOD + Mul(A.f[i][k],B.f[k][j]) % MOD;
-				C.f[i][j] %= MOD;
-			}
-		}
-	}
-	return C;
+
+matrix powMod(matrix A, long long p) {
+    if (p == 0) {
+        matrix I;
+        for (int i = 1; i <= 4; i++) {
+            for (int j = 1; j <= 4; j++) I.a[i][j] = (i == j) ? 1 : 0;
+        }
+        return I;
+    }
+    if (p == 1) return A;
+    matrix tmp = powMod(A, p / 2);
+    matrix ans = mulMatrix(tmp, tmp);
+    if (p % 2 == 1) ans = mulMatrix(ans, A);
+    return ans;
 }
-matran Pow(matran X, ll k) {
-	if (k == 1)return X;
-	matran tmp = Pow(X, k / 2);
-	if (k % 2 == 0)return tmp * tmp;
-	else return tmp * tmp * X;
-}
-ll Tribonaci(ll n) {
-	if (n <= 5)return M[n - 1];
-	matran X;
-	matran S = Pow(X, n+2);
-	return S.f[2][0] - 1;
-}
+
 int main() {
-	int t; cin >> t;
-	while (t--) {
-		ll n; cin >> n;
-		cout << Tribonaci(n) << endl;
-	}
+    int t;
+    cin >> t;
+    while (t--) {
+        cin >> n;
+        if (n <= 5) {
+            vector<int> b = {1, 3, 6, 12, 23};
+            cout << b[n - 1] << endl;
+        } else {
+            matrix T;
+            T.a[1][1] = 1; T.a[1][2] = 0; T.a[1][3] = 0; T.a[1][4] = 0;
+            T.a[2][1] = 0; T.a[2][2] = 1; T.a[2][3] = 1; T.a[2][4] = 0;
+            T.a[3][1] = 1; T.a[3][2] = 1; T.a[3][3] = 0; T.a[3][4] = 1;
+            T.a[4][1] = 0; T.a[4][2] = 1; T.a[4][3] = 0; T.a[4][4] = 0;
+            matrix X = powMod(T, n + 2);
+            long long Tn = X.a[3][1] - 1;
+            cout << Tn << endl;
+        }
+    }
+    return 0;
 }
