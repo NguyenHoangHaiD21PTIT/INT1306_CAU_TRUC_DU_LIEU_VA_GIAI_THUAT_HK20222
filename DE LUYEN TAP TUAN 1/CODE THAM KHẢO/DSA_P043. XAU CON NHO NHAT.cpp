@@ -1,28 +1,25 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-int main() {
+int main(){
     int t;
     cin >> t;
-    while (t--) {
+    while(t--){
         string s;
         cin >> s;
-        int n = s.size(), k = 0, st = 0, ans = INT_MAX, x = 0, a[256] = {};//st: start: điểm bắt đầu xâu con, x: số ký tự phân biệt trong xâu khi xét đến index i
-        map<char, int> m;
-        //k: số ký tự phân biệt trong xâu
-        for (char c : s) {
-            if (!m[c]++) k++;
-        }
-        for (int i = 0; i < n; i++) {
+        set<char>sc;
+        for(char x: s) sc.insert(x);
+        int st = 0, ans = 1e9, x = 0, a[256] = {};
+        for(int i = 0;i<s.size();i++){
             a[s[i]]++;
-            if (a[s[i]] == 1) x++;
-            if (x == k) {
-                while (a[s[st]] > 1) {
+            if(a[s[i]]==1) x++;
+            if(x==sc.size()){
+                while(a[s[st]]>1){
                     a[s[st]]--;
                     st++;
                 }
                 ans = min(ans, i - st + 1);
             }
         }
-        cout << ans << endl;
+        cout<<ans<<endl;
     }
 }
