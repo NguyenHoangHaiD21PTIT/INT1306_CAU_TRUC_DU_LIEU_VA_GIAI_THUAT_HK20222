@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-const long long MOD = 1e12 + 19;
+const long long MOD = 1e15 + 7;
 long long n;
 
 struct matrix {
