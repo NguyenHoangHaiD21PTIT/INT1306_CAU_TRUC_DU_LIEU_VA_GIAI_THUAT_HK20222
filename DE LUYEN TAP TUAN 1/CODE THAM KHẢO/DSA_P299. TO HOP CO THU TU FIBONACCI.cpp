@@ -6,8 +6,8 @@ void gen(){
 	for(int i = 2;i<=91;i++) f[i] = f[i - 1] + f[i - 2];
 }
 
-bool find(long long f[], int n, long long x) {
-    for(int i = 0; i < n; i++) {
+bool find(long long x) {
+    for(int i = 1; i<=90; i++) {
         if(f[i] == x) return true;
     }
     return false;
@@ -36,7 +36,7 @@ int main(){
     ok = 1;
     int cnt = 1;
     while(ok==1){
-        if(find(f, 91, cnt)){
+        if(find(cnt)){
             cout<<cnt<<": ";
             for(int i = 1;i<=k;i++) cout<<a[i]<<" ";
             cout<<endl;
