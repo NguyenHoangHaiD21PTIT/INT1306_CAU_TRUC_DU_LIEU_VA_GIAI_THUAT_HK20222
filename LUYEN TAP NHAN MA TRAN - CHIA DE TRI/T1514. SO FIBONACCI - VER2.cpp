@@ -1,63 +1,57 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
 const long long MOD = 1e12 + 19;
-int sz = 2;
+long long n;
 
 struct matrix {
     long long a[3][3];
 };
 
-// Hàm nhân hai số với mod
-long long mulNumber(long long a, long long b) {
+long long mulMod(long long a, long long b) {
     if (b == 0) return 0;
-    long long ans = mulNumber(a, b / 2);
-    ans = (ans + ans) % MOD;
-    if (b % 2 == 1) ans = (ans + a) % MOD;
+    long long tmp = mulMod(a, b / 2);
+    long long ans = (tmp + tmp) % MOD;
+    if (b % 2) ans = (ans + a) % MOD;
     return ans;
 }
 
-// Hàm nhân hai ma trận
 matrix mulMatrix(matrix A, matrix B) {
     matrix ans;
-    for (int i = 1; i <= sz; i++) {
-        for (int j = 1; j <= sz; j++) ans.a[i][j] = 0;
+    for (int i = 1; i <= 2; i++) {
+        for (int j = 1; j <= 2; j++) ans.a[i][j] = 0;
     }
-    for (int i = 1; i <= sz; i++) {
-        for (int j = 1; j <= sz; j++) {
-            long long sum = 0;
-            for (int k = 1; k <= sz; k++) sum = (sum + mulNumber(A.a[i][k], B.a[k][j])) % MOD;
-            ans.a[i][j] = sum;
+    for (int i = 1; i <= 2; i++) {
+        for (int j = 1; j <= 2; j++) {
+            for (int k = 1; k <= 2; k++) ans.a[i][j] = (ans.a[i][j] + mulMod(A.a[i][k], B.a[k][j])) % MOD;
         }
     }
     return ans;
 }
 
-// Hàm lũy thừa ma trận
-matrix powMatrix(matrix A, long long n) {
-    if (n == 0) {
+matrix powMod(matrix A, long long p) {
+    if (p == 0) {
         matrix I;
-        for (int i = 1; i <= sz; i++) {
-            for (int j = 1; j <= sz; j++) I.a[i][j] = (i == j); // Ma trận đơn vị
+        for (int i = 1; i <= 2; i++) {
+            for (int j = 1; j <= 2; j++) I.a[i][j] = (i == j) ? 1 : 0;
         }
         return I;
     }
-    if (n == 1) return A;
-    matrix ans = powMatrix(A, n / 2);
-    ans = mulMatrix(ans, ans);
-    if (n % 2 == 1) ans = mulMatrix(ans, A);
+    if (p == 1) return A;
+    matrix tmp = powMod(A, p / 2);
+    matrix ans = mulMatrix(tmp, tmp);
+    if (p % 2 == 1) ans = mulMatrix(ans, A);
     return ans;
 }
+
 int main() {
+    int t;
+    cin >> t;
     matrix A;
     A.a[1][1] = 1; A.a[1][2] = 1;
     A.a[2][1] = 1; A.a[2][2] = 0;
-    int t;
-    cin >> t;
     while (t--) {
-        long long n;
         cin >> n;
-        matrix X = powMatrix(A, n - 1);
+        matrix X = powMod(A, n - 1);
         long long Fn = (X.a[1][1] + X.a[1][2]) % MOD;
         cout << Fn << endl;
     }
