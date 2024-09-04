@@ -8,7 +8,7 @@ string S;
 bool canReachIn(ll k) {
     ll x = stX, y = stY;
     ll dx = 0, dy = 0;
-    for (int i = 0; i < (k % n); ++i) {
+    for (int i = 0; i < min(1LL *n, k); ++i) {
         if (S[i] == 'U') y++;
         if (S[i] == 'D') y--;
         if (S[i] == 'R') x++;
