@@ -1,48 +1,48 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
-struct matran {
-    long long c[2][2];
-    matran() {
-        c[0][0] = 0; c[0][1] = 1;
-        c[1][0] = 1; c[1][1] = 1;
-    }
+long long n, MOD;
+struct matrix {
+    long long a[3][3];
 };
 
-matran matrixMul(const matran &a, const matran &b, long long MOD) {
-    matran res;
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 2; j++) {
-            res.c[i][j] = 0;
-            for (int k = 0; k < 2; k++) res.c[i][j] = (res.c[i][j] + a.c[i][k] * b.c[k][j] % MOD) % MOD;
+matrix mulMatrix(matrix A, matrix B) {
+    matrix ans;
+    for (int i = 1; i <= 2; i++) {
+        for (int j = 1; j <= 2; j++) ans.a[i][j] = 0;
+    }
+    for (int i = 1; i <= 2; i++) {
+        for (int j = 1; j <= 2; j++) {
+            for (int k = 1; k <= 2; k++) ans.a[i][j] = (ans.a[i][j] + A.a[i][k]*B.a[k][j]) % MOD;
         }
     }
-    return res;
+    return ans;
 }
 
-matran powmod(matran a, long long n, long long MOD) {
-    if (n == 1) return a;
-    if (n % 2 == 1) return matrixMul(powmod(a, n - 1, MOD), a, MOD);
-    matran tmp = powmod(a, n / 2, MOD);
-    return matrixMul(tmp, tmp, MOD);
-}
-
-long long fibonacci(long long n, long long MOD) {
-    if (n == 0) return 0;
-    matran x;
-    x = powmod(x, n, MOD);
-    return x.c[0][1];
+matrix powMod(matrix A, long long p) {
+    if (p == 0) {
+        matrix I;
+        for (int i = 1; i <= 2; i++) {
+            for (int j = 1; j <= 2; j++) I.a[i][j] = (i == j) ? 1 : 0;
+        }
+        return I;
+    }
+    if (p == 1) return A;
+    matrix tmp = powMod(A, p / 2);
+    matrix ans = mulMatrix(tmp, tmp);
+    if (p % 2 == 1) ans = mulMatrix(ans, A);
+    return ans;
 }
 
 int main() {
     int t;
     cin >> t;
+    matrix A;
+    A.a[1][1] = 0; A.a[1][2] = 1;
+    A.a[2][1] = 1; A.a[2][2] = 1;
     while (t--) {
-        long long a, b, M;
-        cin >> a >> b >> M;
-        long long g = __gcd(a, b);
-        cout << fibonacci(g, M) << endl;
+        long long a, b;
+        cin>>a>>b>>MOD;
+        matrix X = powMod(A, __gcd(a, b));
+        cout<<X.a[1][2]<<endl;
     }
-    return 0;
 }
-//Ghi nhớ: GCD(F(a), F(b)) = F(GCD(a, b))
