@@ -26,6 +26,6 @@ int main() {
         if (valid) cnt++;
         freq[A[i]]++;
     }
-    cout << cnt << endl;
+    cout << cnt;
 }
 
