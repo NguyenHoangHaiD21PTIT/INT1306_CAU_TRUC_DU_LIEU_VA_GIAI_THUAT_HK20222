@@ -16,7 +16,7 @@ int main() {
     for (int i = 1; i <= m; i++) cin >> b[i].first >> b[i].second;
     memset(f, 0x3f, sizeof(f)); 
     f[1][0][0] = 0; // Bắt đầu từ địa điểm đầu tiên của khu A
-
+    //f[i][j][0]: Tổng khoảng cách nếu đi hết i cụm khu A, j cụm khu B và: 0 là kết thúc tại A, 1 là kết thúc tại B
     for (int i = 1; i <= n; i++) {
         for (int j = 0; j <= m; j++) {
             /* Đi hết i cụm A, j cụm B và kết thúc ở A: Đi hết i - 1 cụm A, j cụm B 
@@ -24,7 +24,6 @@ int main() {
                TH2: Đang kết thúc ở B: Đi từ cụm thứ j của B sang cụm thứ i của A
             */
             if (i > 1) f[i][j][0] = min(f[i - 1][j][0] + dis(a[i], a[i - 1]), f[i - 1][j][1] + dis(a[i], b[j]));
-
             /* Đi hết i cụm A, j cụm B và kết thúc ở B: Đi hết i cụm A, j - 1 cụm B 
                TH1: Đang kết thúc ở A: Đi từ cụm thứ i của A sang cụm thứ j của B
                TH2: Đang kết thúc ở B: Đi từ cụm thứ j - 1 của B sang cụm thứ j của B
