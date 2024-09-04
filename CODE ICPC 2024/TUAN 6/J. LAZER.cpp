@@ -6,13 +6,10 @@ char raw_maze[105][105];
 int allowed[105][105][4]; 
 int visited[105][105][4]; 
 int n, m; //Size maze n x m
-
-
 /*1. Xem những ô nào sẽ bị laze bắn. 
-Quy ước: 0 là đi thẳng, 1: sang phải, 2: xuống dưới, 3: sang trái. THEO CÁI HƯỚNG ĐÓ
-Ví dụ: Đang chọc sang phải thì 0: là tiếp tục sang phải, 1: sang phải bây giờ tương đương xuống dưới theo hệ trục gốc
 Vì laze ưu tiên bắn ô theo hướng nó đang đi trước, rồi nó quay vòng. 
-allowed[i][j][k] = 1: ô thứ i, j đang bị bắn theo hướng thứ k DỰA TRÊN HƯỚNG LAZE CHIẾU BAN ĐẦU*/
+allowed[i][j][k] = 1: ô thứ i, j sẽ bị bắn vào thời điểm k mod 4 (Lí do lấy mod4 là vì hướng bắn là tuần hoàn)
+Ví dụ: Laze có hướng là > thì 0s: Bắn phải, 1s: Bắn dưới, 2s: Bắn trái, 3s: Bắn lên, 4s: Lại sang phải. Do đó, ta chỉ cần biết thời điểm ấy mod 4 ra bao nhiêu thì biết khi ấy ô đó có bị bắn không*/
 void preprocess(){
     memset(allowed, 0, sizeof(allowed)); 
     for(int i = 0; i < n; i++){
@@ -41,15 +38,12 @@ void preprocess(){
         }
     }
 }
-
 // Hàm kiểm tra ô (y, x) có hợp lệ và có thể đi qua không
 bool is_valid(int y, int x){
     if(y >= 0 && y < n && x >= 0 && x < m) return raw_maze[y][x] == '.'; 
     return false;
 }
-
 int startX, startY, goalX, goalY; // Tọa độ điểm bắt đầu và điểm đích
-
 int main(){
     int t;
     cin >> t;
@@ -69,40 +63,31 @@ int main(){
                 }
             }
         }
-        preprocess(); //Xem những ô nào bị bắn trước
+        preprocess(); //Xem mỗi ô sẽ bị bắn vào những khi nào (Không cần biết bị bắn do thằng nào, chỉ cần biết khi ấy nó có bị bắn hay không)
         memset(visited, 0, sizeof(visited)); 
-
-
         //2. Thực hiện thuật toán BFS
-        queue<pair<int, int>> bfs_q; 
-        queue<int> dis_q; // Hàng đợi để lưu trữ khoảng cách
-        visited[startY][startX][0] = 1; // Đánh dấu vị trí bắt đầu đã thăm với thời gian 0
-        bfs_q.push({startY, startX});
-        dis_q.push(0);
+        queue<tuple<int, int, int>> q; // (y, x, thời điểm)
+        q.push({startY, startX, 0});
+        visited[startY][startX][0] = 1;
         bool found = false;
-        
-        // Bắt đầu thuật toán BFS
-        while(!bfs_q.empty()){
-            int curY = bfs_q.front().first;
-            int curX = bfs_q.front().second;
-            int curDis = dis_q.front();
+        while(!q.empty()){
+            int curY, curX, curDis;
+            tie(curY, curX, curDis) = q.front();
+            q.pop();
             if(curY == goalY && curX == goalX){
                 cout << curDis << endl; 
                 found = true;
                 break;
             }
-            bfs_q.pop();
-            dis_q.pop();
-            //Quét qua 4 khả năng di chuyển
+            //Ta dùng BFS, nên tất cả các ô đi tới sẽ trong thời gian ngắn nhất. Bây giờ, xem nếu đi time min thế, thì có bị bắn không
             for(int i = 0; i < 4; i++){
                 int nextY = curY + dY[i];
                 int nextX = curX + dX[i];
-                if(!is_valid(nextY, nextX)) continue;//ô không đi được thì bỏ luôn
-                if(allowed[nextY][nextX][(curDis + 1) % 4]) continue;//ô đấy bị laze bắn thì cũng bỏ
-                if(visited[nextY][nextX][(curDis + 1) % 4]) continue;//ô đấy đã xét thì cũng bỏ
+                if(!is_valid(nextY, nextX)) continue; // Ô không đi được thì bỏ qua
+                if(allowed[nextY][nextX][(curDis + 1) % 4]) continue; // Ô đấy bị laser bắn thì bỏ qua
+                if(visited[nextY][nextX][(curDis + 1) % 4]) continue; // Ô đấy đã xét thì bỏ qua
                 visited[nextY][nextX][(curDis + 1) % 4] = 1;
-                bfs_q.push({nextY, nextX});
-                dis_q.push(curDis + 1);
+                q.push({nextY, nextX, curDis + 1});
             }
         }
         if(!found) cout << "impossible" << endl; 
