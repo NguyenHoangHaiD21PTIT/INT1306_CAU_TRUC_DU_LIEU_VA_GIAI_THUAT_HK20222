@@ -19,7 +19,7 @@ int BFS() {
             visited[nextFl];
         }
         nextFl = curFl - d;
-        if (nextFl <= n && !visited[nextFl]) {
+        if (nextFl >= 1 && !visited[nextFl]) {
             q.push({nextFl, cnt + 1});
             visited[nextFl];
         }
