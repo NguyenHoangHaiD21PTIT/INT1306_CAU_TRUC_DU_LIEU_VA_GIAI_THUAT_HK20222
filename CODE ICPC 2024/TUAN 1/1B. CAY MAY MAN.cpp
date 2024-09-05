@@ -18,7 +18,7 @@ bool checkLucky(string x) {
 	return true;
 }
 
-void dfs(int u) {
+void dfs(int u) { //Xác định thành phần liên thông XẤU
 	mark[u] = true;
 	CompSize[CurPar]++;
 	par[u] = CurPar;
@@ -48,7 +48,10 @@ int main() {
 			dfs(i);
 		}
 	}
-	//Mỗi đỉnh, ta cần chọn 2 đỉnh không thuộc cùng TPLT xấu với nó
+	//1. Giữa 2 đỉnh của cây chỉ có 1 đường đi duy nhất
+	//2. Cùng thành phần liên thông thì sẽ có đường đi --> 2 đỉnh thuộc cùng tplt xấu thì đường đi sẽ k chứa cạnh may mắn nào (TPLT ấy k có cạnh may mắn). Và đó cũng là đường đi duy nhất
+	//-> Muốn trên đường đi có cạnh may mắn thì phải có ít nhất một đỉnh ngoài TPLT xấu
+	//Xét với mỗi một index i đã biết. Để tạo ra bộ (i, j, k) thì ta phải chọn j, k phân biệt từ những điểm không cùng TPLT xấu với i
 	long long int ans = 0;
 	for(int i = 1; i <= n; i++) {
 		long long int p = par[i];
