@@ -1,40 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
+int n, st, en, u, d;
+int visited[1000006];
 
-int soLanBam(int N, int ST, int EN, int u, int d) {
-    if (ST == EN) return 0;
-    vector<bool> daTham(N + 1, false);
-    queue<pair<int, int>> hangDoi; //Lưu tầng và số lần nhấn
-    hangDoi.push({ST, 0});
-    daTham[ST] = true;
-    while (!hangDoi.empty()) {
-        int tangHienTai = hangDoi.front().first;
-        int soLan = hangDoi.front().second;
-        hangDoi.pop();
-
-        //Xét đích
-        if(tangHienTai==EN) return soLan;
-
-        // Lên
-        int tangTiepTheo = tangHienTai + u;
-        if (tangTiepTheo <= N && !daTham[tangTiepTheo]) {
-            hangDoi.push({tangTiepTheo, soLan + 1});
-            daTham[tangTiepTheo] = true;
+int BFS() {
+    if (st == en) return 0;
+    queue<pair<int, int>>q;
+    q.push({st, 0});
+    visited[st] = true;
+    while (!q.empty()) {
+        int curFl = q.front().first;
+        int cnt = q.front().second;
+        q.pop();
+        if(curFl==en) return cnt;
+        int nextFl = curFl + u;
+        if (nextFl <= n && !visited[nextFl]) {
+            q.push({nextFl, cnt + 1});
+            visited[nextFl];
         }
-
-        // Xuống
-        tangTiepTheo = tangHienTai - d;
-        if (tangTiepTheo >= 1 && !daTham[tangTiepTheo]) {
-            hangDoi.push({tangTiepTheo, soLan + 1});
-            daTham[tangTiepTheo] = true;
+        nextFl = curFl - d;
+        if (nextFl <= n && !visited[nextFl]) {
+            q.push({nextFl, cnt + 1});
+            visited[nextFl];
         }
     }
-
     return -1;
 }
 
 int main() {
-    int n, st, en, u, d;
     cin>>n>>st>>en>>u>>d;
-    cout<<soLanBam(n, st, en, u, d);
+    cout<<BFS();
 }
