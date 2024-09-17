@@ -3,7 +3,6 @@ using namespace std;
 int main(){
     int n; string s;
     cin>>n>>s;
-    string q = "RGB";
     s = " " + s;
     int dp[100][4005];//dp[i][j]: số lần xuất hiện chữ cái i tính đến index j
     for(int i = 1;i<=n;i++){
