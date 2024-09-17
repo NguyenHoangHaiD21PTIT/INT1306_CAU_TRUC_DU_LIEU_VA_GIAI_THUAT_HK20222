@@ -4,6 +4,7 @@ int main(){
     int n; string s;
     cin>>n>>s;
     s = " " + s;
+    string q = "RGB";
     int dp[100][4005];//dp[i][j]: số lần xuất hiện chữ cái i tính đến index j
     for(int i = 1;i<=n;i++){
         for(char x: q) dp[int(x)][i] = dp[int(x)][i - 1] + (x == s[i]);
