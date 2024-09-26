@@ -2,12 +2,19 @@
 using namespace std;
 
 long long calc(vector<int>& A, vector<int>& op, int M) {
-    long long res = A[0] % M;  
+    long long res = 0;    
+    long long tmp = A[0]; 
     for (int i = 0; i < op.size(); i++) {
-        if (op[i] == 0) res = (res + A[i + 1]) % M;   
-        else if (op[i] == 1) res = (res - A[i + 1] + M) % M; 
-        else if (op[i] == 2) res = (res * A[i + 1]) % M; 
+        if (op[i] == 2) { 
+            tmp = (tmp * A[i + 1]) % M; 
+        } else {
+            res = (res + tmp) % M;
+            if (op[i] == 0) tmp = A[i + 1];
+            else if (op[i] == 1)  tmp = (-A[i + 1] + M) % M;
+        }
     }
+
+    res = (res + tmp) % M;
     return res;
 }
 
@@ -33,7 +40,7 @@ int main() {
         int ok = 1, cnt = 0;
         while (ok) {
             long long tmp = calc(A, op, M);
-            if (tmp==0) cnt++; 
+            if (tmp == 0) cnt++; 
             sinh(op, ok); 
         }
         cout << cnt << endl; 
