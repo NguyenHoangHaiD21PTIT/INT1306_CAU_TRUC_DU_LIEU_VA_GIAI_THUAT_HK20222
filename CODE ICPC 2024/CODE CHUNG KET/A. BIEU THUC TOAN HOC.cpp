@@ -13,7 +13,6 @@ long long calc(vector<int>& A, vector<int>& op, int M) {
             else if (op[i] == 1)  tmp = (-A[i + 1] + M) % M;
         }
     }
-
     res = (res + tmp) % M;
     return res;
 }
