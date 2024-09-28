@@ -19,7 +19,7 @@ int main() {
     //Chỗ này tư duy như prefix sum thôi
     //Bắt đầu từ i, dài m thì end sẽ là i + m - 1. Ta sẽ lấy pre[end] - pre[start - 1]
     //Tuy nhiên đây là số, nên loại ta cần bỏ đúng trị số của nó
-    //Ví dụ như 1234, ta muốn loại đi 12 thì phải lấy: 1234 - 12*10^2
+    //Ví dụ như 1234, ta muốn loại đi 12 thì phải lấy: 12345 - 123*10^2 (2 là số chữ số đoạn đang xét)
     for (int i = 1; i <= n - m; ++i) {
         long long curHash = (Hash[i + m - 1] - Hash[i - 1] * Pow[m] % MOD + MOD) % MOD;
         if (curHash == k) cout << i + 1 << ' ';
