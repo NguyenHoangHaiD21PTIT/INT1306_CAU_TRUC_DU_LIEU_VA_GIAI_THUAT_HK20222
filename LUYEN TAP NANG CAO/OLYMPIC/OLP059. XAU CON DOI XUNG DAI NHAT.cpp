@@ -26,7 +26,8 @@ void solution(){
     for(int i=1;i<=n;i++) hash_left[i]=(hash_left[i-1]*26 + s[i]-'a')%p;
     for(int i=n;i>0;i--) hash_right[i]=(hash_right[i+1]*26 + s[i]-'a')%p;
     for(int i=1;i<=n;i++){
-        //Xâu đối xứng độ dài lẻ. Ở đây, i là tâm xâu đối xứng
+        //Xâu đối xứng độ dài chẵn. Độ dài sẽ là 2 mid. Nửa đầu là [i về đầu] dài mid, thêm [i + 1 về sau] dài mid
+        //i - l + 1 = mid ->l = i + 1 - mid; r - (i + 1) + 1 = mid -->r = mid + i
         int left=0, right = min(i,n-i);
         while(left <= right){
             int mid=(left+right)/2;
@@ -35,8 +36,9 @@ void solution(){
                 left = mid+1;
             }
             else right = mid-1;
-        }//i - x + 1 = mid ->x = i + 1 - mid; x1 - (i + 1) + 1 = mid -->x1 = mid + i
-        // chan
+        }
+        //Xâu đối xứng độ dài lẻ. Ở đây thì i là tâm của xâu đối xứng, i - 1 đổ về dài mid, i + 1 đổ về dài mid
+        //i - 1 - x  + 1 = mid, y - (i + 1) + 1 = mid
         left=0,right=min(i-1,n-i);
         while(left<=right){
             int mid=(left+right)/2;
