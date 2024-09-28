@@ -20,9 +20,8 @@ void Try(int i, int j){
 		int j1 = j + dy[k];
 		if(i1>=0&&i1<=n-1&&j1>=0&&j1<=n-1&&a[i1][j1]==1){
 			s=s+tmp[k];
-			a[i1][j1] = 0;//o da xet tren duong di
+			a[i1][j1] = 0;
 			Try(i1,j1);
-			//Backtrack lai try truoc do. Try nao thuc hien xong thi tra lai trang thai
 			a[i1][j1] =1 ;
 			s.pop_back();	
 		}
@@ -36,9 +35,7 @@ int main(){
 		ok = 0;
 		cin>>n;
 		for(int i=0;i<n;i++){
-			for(int j = 0;j<n;j++){
-				cin>>a[i][j];
-			}
+			for(int j = 0;j<n;j++) cin>>a[i][j];
 		}
 		if(a[n-1][n-1]==1&&a[0][0]== 1){
 			a[0][0] = 0;
