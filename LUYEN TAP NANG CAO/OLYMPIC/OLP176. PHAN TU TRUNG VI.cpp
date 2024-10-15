@@ -17,8 +17,8 @@ int main() {
     for (int i = 1; i <= n; i++) {
         sum += a[i]; 
         if (a[i] == 0) cntM++; 
-        if (cntM % 2 == 0)  cnt += pre[1][sum]; 
-        else              cnt += pre[0][sum]; 
+        if (cntM % 2 == 0) cnt += pre[1][sum]; 
+        else cnt += pre[0][sum]; 
         pre[cntM % 2][sum]++; 
     }
     cout << cnt; 
