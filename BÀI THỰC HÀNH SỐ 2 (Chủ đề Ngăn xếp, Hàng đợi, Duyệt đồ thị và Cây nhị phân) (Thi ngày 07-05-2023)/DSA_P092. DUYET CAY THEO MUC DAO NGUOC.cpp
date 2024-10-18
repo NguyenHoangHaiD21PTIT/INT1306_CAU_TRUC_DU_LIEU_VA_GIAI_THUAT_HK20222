@@ -46,7 +46,6 @@ void spiralorder(node *root){
     }
     for (int i = levels.size() - 1; i >= 0; i--) { // Traverse levels in reverse order
         for (int j = 0; j < levels[i].size(); j++) cout << levels[i][j] << " ";
-        if(i)reverse(levels[i - 1].begin(), levels[i - 1].end());
     }
 }
 
