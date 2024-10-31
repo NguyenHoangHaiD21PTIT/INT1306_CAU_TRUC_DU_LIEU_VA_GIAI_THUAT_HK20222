@@ -48,7 +48,7 @@ int main() {
             if (dist[i][Points[j]] < INF) cost[i][j] = dist[i][Points[j]];
         }
     }
-    vector<vector<long long>> dp(1 << (K + 1), vector<long long>(K + 1, INF));
+    vector<vector<long long>> dp(1 << (K + 1), vector<long long>(K + 1, INF));//(2^(K + 1)) x (K + 1): dp[mask][i] Chi phí nhỏ nhất để đạt được trạng thái mask và kết thúc tại vị trí i
     dp[1][0] = 0; 
     for (int mask = 1; mask < (1 << (K + 1)); mask++) {
         for (int i = 0; i <= K; i++) {
