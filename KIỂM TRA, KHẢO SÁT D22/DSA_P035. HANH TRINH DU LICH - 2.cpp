@@ -40,10 +40,8 @@ int main() {
         cin >> u >> v >> c;
         graph[u].push_back({v, c});
     }
-
-    vector<vector<long long>> dist(K + 1, vector<long long>(N + 1, INF));
+    vector<vector<long long>> dist(K + 1, vector<long long>(N + 1, INF));//mảng 2 chiều (K + 1) x (N + 1)
     for (int i = 0; i <= K; i++) dist[i] = Dijkstra(Points[i], graph, N);
-
     vector<vector<long long>> cost(K + 1, vector<long long>(K + 1, INF));
     for (int i = 0; i <= K; i++) {
         for (int j = 0; j <= K; j++) {
