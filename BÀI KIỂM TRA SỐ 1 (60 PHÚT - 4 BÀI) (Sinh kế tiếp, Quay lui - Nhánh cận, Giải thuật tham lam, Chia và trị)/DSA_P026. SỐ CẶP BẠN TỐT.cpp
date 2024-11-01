@@ -1,26 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-int main() {
-    long n, k;
-    vector<long> A(25, 0);  
-    vector<long> B(60005, 0);
-    long long S = 0;
+int main(){
+    int n, k, ans = 0;
     cin >> n >> k;
+    vector<string> s(n + 1);
+    int f[n + 1][30] = {};  //f[i][j]: Số lượng xâu con dài j tính từ đầu cho đến chỉ số i
     for (int i = 1; i <= n; i++) {
-        string x;
-        cin >> x;
-        B[i] = x.length();
-    }
-    for (int i = 2; i <= 20; i++) A[i] = 0;
-    if (k < n) {
-        for (int i = k; i >= 1; i--) A[B[i]]++;
-    } else {
-        for (int i = n; i >= 1; i--) A[B[i]]++;
+        cin >> s[i];
+        for (int j = 0; j < 30; j++) f[i][j] = f[i - 1][j];  
+        f[i][s[i].size()]++;  
     }
     for (int i = 1; i <= n; i++) {
-        A[B[i + k]]++;
-        S += A[B[i]] - 1;
-        A[B[i]]--;
+        int length = s[i].size();
+        ans += f[i - 1][length] - f[max(i - k - 1, 0)][length];
     }
-    cout << S << endl;
+    cout << ans;
 }
