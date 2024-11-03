@@ -1,74 +1,37 @@
-#include "bits/stdc++.h"
+#include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
- 
-#ifdef JASPER
-#include "debug.h"
-#else
-#define debug(...) 166
-#endif
- 
-#define int long long
- 
-const int K = 5;
-const int MOD = 1e9 + 7;
-signed main() {
-    cin.tie(0) -> sync_with_stdio(0);
- 
-    #ifdef JASPER
-        freopen("in1", "r", stdin);
-    #endif
- 
- 
-    int n;
-    cin >> n;
-    vector <array <int, 5>> a(n);
+const int MOD = 1e9 + 7; 
+int main() {
+    int n; 
+    cin >> n; 
+    int a[n][5]; 
     for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < 5; ++j)
-            cin >> a[i][j];
+        for (int j = 0; j < 5; ++j) cin >> a[i][j]; 
     }
- 
-    map <ll, int> cnt[K + 1];
- 
+    map<long long, int> cnt[6]; 
     for (int i = 0; i < n; ++i) {
-        array <int, 5> subset;
-        for (int msk = 0; msk < (1 << K); ++msk) {
-            int k = 0;
+        for (int mask = 0; mask < (1 << 5); mask++) {
+            vector<int> subset;
             for (int j = 0; j < 5; ++j) {
-                if (msk & (1 << j)) {
-                    subset[j] = a[i][j];
-                    ++k;
-                }
-                else    
-                    subset[j] = 0;
+                if (mask & (1 << j)) subset.push_back(a[i][j]); 
             }
-            sort(subset.begin(), subset.end());
-            ll val = 0;
-            ll p = 1;
-            for (int j = 0; j < 5; ++j) {
-                if (subset[j]) {
-                    val = (val * p + subset[j]);
-                    p *= MOD;
-                }
+            sort(subset.begin(), subset.end()); 
+            long long val = 0, power = 1; 
+            for (int j = 0; j < subset.size(); ++j) { // Kĩ thuật Hashing
+                val = val * power + subset[j]; 
+                power *= MOD; 
             }
-            cnt[k][val]++;
+            cnt[subset.size()][val]++; // Đếm số lượng tổ hợp với kích thước tương ứng
         }
     }
- 
- 
-    ll tot = 1LL * n * (n - 1) / 2;
- 
-    ll invalid = 0;
-    for (int i = 1; i <= K; ++i) {
-        for (const auto& [x, y] : cnt[i]) {
-            if (i & 1)
-                invalid += 1LL * y * (y - 1) / 2;
-            else 
-                invalid -= 1LL * y * (y - 1) / 2;
+    long long tol = (long long)n * (n - 1) / 2; // Tổng số cặp học sinh
+    long long inval = 0; // Số cặp học sinh không hợp nhau
+    for (int i = 1; i <= 5; ++i) {
+        for (const auto& ele : cnt[i]) {
+            long long x = 1LL * ele.second * (ele.second - 1) / 2; 
+            if (i % 2 == 1) inval += x;
+            else  inval -= x;
         }
     }
- 
-    cout << (tot - invalid) << "\n";
- 
-    return 0;
+    cout << (tol - inval); 
 }
