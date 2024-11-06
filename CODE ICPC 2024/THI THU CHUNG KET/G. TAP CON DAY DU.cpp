@@ -31,9 +31,9 @@ int main() {
     memset(a, 0, sizeof(a));
     ok = 1;
     while (ok) {
-        int xorMask = 0;
+        int sumMask = 0;
         for (int i = 0; i < N; i++) {
-            if (a[i] == 1) xorMask |= mask[i];
+            if (a[i] == 1) sumMask |= mask[i];
         }
         if (xorMask == (1 << 26) - 1) cnt++;
         sinh();
