@@ -1,44 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Element {
-    int sum;          // Tổng của các phần tử đã chọn
-    vector<int> idxs; // Vị trí các phần tử đã chọn trong từng dãy
-    Element(int s, vector<int> idx) : sum(s), idxs(idx) {}
-    bool operator>(const Element& other) const {
-        return sum > other.sum; 
+#define ff first
+#define ss second
+typedef pair<int, int> ii;
+const int MAXK = 750 + 3;
+
+void merge(int a[], int b[], int c[], int k) { 
+    priority_queue<ii, vector<ii>, greater<ii>> pq;
+    for (int i = 0; i < k; ++i) pq.push(ii(a[i] + b[0], 0));
+    int idx = 0;
+    //Tịnh tiến theo vị trí của b. Ghép a với b vào c
+    while (!pq.empty() && idx < k) {
+        ii t = pq.top();  
+        pq.pop();   
+        c[idx++] = t.ff;  
+        if (t.ss + 1 < k) pq.push(ii(t.ff - b[t.ss] + b[t.ss + 1], t.ss + 1));
     }
-};
+}
 
 int main() {
-    int K;
-    cin >> K;
-    vector<vector<int>> a(K, vector<int>(K)); 
-    vector<Element> ele;         
-    for (int i = 0; i < K; i++) {
-        for (int j = 0; j < K; j++) cin >> a[i][j];
-        sort(a[i].begin(), a[i].end()); 
+    int k, arr1[MAXK], arr2[MAXK];
+    cin >> k;
+    for (int i = 0; i < k; ++i) cin >> arr1[i];
+    sort(arr1, arr1 + k);  
+    for (int i = 1; i < k; ++i) {
+        for (int j = 0; j < k; ++j) cin >> arr2[j];
+        sort(arr2, arr2 + k); 
+        merge(arr1, arr2, arr1, k);  
     }
-    priority_queue<Element, vector<Element>, greater<Element>> pq;  // Priority queue để lưu phần tử theo tổng tăng dần
-    vector<int> idxs(K, 0);  // idxs[i] = j: trong hàng thứ i thì phần tử thứ j được chọn
-    // Tổng ban đầu là tất cả các phần tử đầu tiên của K dãy
-    int sum = 0;
-    for (int i = 0; i < K; i++) sum += a[i][0];
-    pq.push(Element(sum, idxs)); 
-    set<int> res;  
-    while (res.size() < K) {
-        Element cur = pq.top();  
-        pq.pop();
-        res.insert(cur.sum);  
-        for (int i = 0; i < K; i++) {//Xét K dãy
-            if (cur.idxs[i] + 1 < K) {//Nếu vị trí được chọn trong hàng thứ i chưa phải vị trí cuối
-                vector<int> new_idxs = cur.idxs;
-                new_idxs[i]++; //Trong hàng thứ i, dịch vị trí phần tử được chọn lên
-                int new_sum = cur.sum - a[i][cur.idxs[i]] + a[i][new_idxs[i]];
-                pq.push(Element(new_sum, new_idxs));
-            
-            }
-        }
-    }
-    for (auto it = res.begin(); it != res.end(); it++) cout << *it << " ";
+    cout << arr1[0];  
+    for (int i = 1; i < k; ++i) cout << " " << arr1[i];  
+    cout << endl;
 }
