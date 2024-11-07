@@ -1,42 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-int N, a[30], cnt = 0, ok; 
-vector<int> mask;  
-vector<string> word; 
-
-void sinh() {
-    int i = N - 1;
-    while (i >= 0 && a[i] == 1) {
-        a[i] = 0;
-        i--;
-    }
-    if (i == -1) ok = 0;
-    else a[i] = 1;
-}
-
+int N, res = 0;  
+vector<int> bitmask;  // Lưu bitmask của từng từ
 int get(string word) {
     int mask = 0;
-    for (char c : word) mask |= (1 << (c - 'a'));  
+    for (char c : word) mask |= (1 << (c - 'a'));  // Bật bit tương ứng với ký tự c
     return mask;
 }
-
+void Try(int idx, int curMask) {
+    if (idx == N) {
+        if (curMask == (1 << 26) - 1) res++;
+        return;
+    }
+    Try(idx + 1, curMask);
+    Try(idx + 1, curMask | bitmask[idx]);
+}
 int main() {
-    cin >> N;  
-    mask.resize(N); word.resize(N);  
+    cin >> N;
+    bitmask.resize(N);
     for (int i = 0; i < N; i++) {
-        cin >> word[i];  
-        mask[i] = get(word[i]);  
+        string word;
+        cin >> word;
+        bitmask[i] = get(word);  
     }
-    memset(a, 0, sizeof(a));
-    ok = 1;
-    while (ok) {
-        int sumMask = 0;
-        for (int i = 0; i < N; i++) {
-            if (a[i] == 1) sumMask |= mask[i];
-        }
-        if (sumMask == (1 << 26) - 1) cnt++;
-        sinh();
-    }
-    cout << cnt;
+    Try(0, 0);
+    cout << res << endl;
 }
