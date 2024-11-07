@@ -26,3 +26,4 @@ int main() {
     Try(0, 0);
     cout << res << endl;
 }
+//Link submit: https://oj.vnoi.info/problem/backtrack_d
