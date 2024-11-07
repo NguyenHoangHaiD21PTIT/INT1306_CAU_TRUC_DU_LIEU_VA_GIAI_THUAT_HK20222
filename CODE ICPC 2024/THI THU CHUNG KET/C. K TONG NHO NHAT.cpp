@@ -33,3 +33,4 @@ int main() {
     for (int i = 1; i < k; ++i) cout << " " << arr1[i];  
     cout << endl;
 }
+//https://vjudge.net/problem/UVA-11997
