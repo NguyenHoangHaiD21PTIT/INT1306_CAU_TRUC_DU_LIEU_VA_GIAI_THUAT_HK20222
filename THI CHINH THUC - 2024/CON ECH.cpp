@@ -1,7 +1,5 @@
 #include<bits/stdc++.h>
-
 using namespace std;
-
 int main() {
 	int n;
 	cin >> n;
@@ -14,3 +12,4 @@ int main() {
 	}
 	cout << dp[n - 1] << endl;
 }
+//https://oj.vnoi.info/problem/atcoder_dp_a
