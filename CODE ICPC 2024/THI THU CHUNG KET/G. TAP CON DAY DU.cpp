@@ -35,7 +35,7 @@ int main() {
         for (int i = 0; i < N; i++) {
             if (a[i] == 1) sumMask |= mask[i];
         }
-        if (xorMask == (1 << 26) - 1) cnt++;
+        if (sumMask == (1 << 26) - 1) cnt++;
         sinh();
     }
     cout << cnt;
