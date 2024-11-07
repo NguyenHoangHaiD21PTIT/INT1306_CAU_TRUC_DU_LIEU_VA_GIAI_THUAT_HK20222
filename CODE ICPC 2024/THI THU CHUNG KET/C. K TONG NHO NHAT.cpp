@@ -35,7 +35,6 @@ int main() {
                 vector<int> new_idxs = cur.idxs;
                 new_idxs[i]++; //Trong hàng thứ i, dịch vị trí phần tử được chọn lên
                 int new_sum = cur.sum - a[i][cur.idxs[i]] + a[i][new_idxs[i]];
-                cout<<new_sum<<endl;
                 pq.push(Element(new_sum, new_idxs));
             
             }
