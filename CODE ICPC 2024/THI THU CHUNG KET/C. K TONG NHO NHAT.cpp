@@ -34,3 +34,4 @@ int main() {
     cout << endl;
 }
 //https://basecamp.eolymp.com/en/problems/2057
+//https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&page=show_problem&problem=3148
