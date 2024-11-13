@@ -1,9 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 const int mxn = 1e5 + 7;
 int f[mxn];
-
 int get(int x) {
     int res = 0;
     while (x < mxn) {
@@ -12,15 +10,13 @@ int get(int x) {
     }
     return res;
 }
-
 void update(int x) {
     while (x > 0) {
         ++f[x];
         x -= x & -x;
     }
 }
-
-void solve() {
+int main() {
     int n; cin >> n;
     int a[n + 5];
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -35,11 +31,7 @@ void solve() {
             v.clear();
         }
     }
-    cout << res << endl;
+    cout << res;
 }
 
-int main() {
-    ios::sync_with_stdio(false);
-    int TC = 1;
-    while (TC--) solve();
-}
+
