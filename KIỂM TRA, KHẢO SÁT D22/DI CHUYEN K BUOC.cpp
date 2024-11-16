@@ -59,3 +59,4 @@ int main() {
     A = powMod(A, k, n);
     cout << A.a[u][v] << endl;
 }
+//https://oj.vnoi.info/problem/atcoder_dp_r
