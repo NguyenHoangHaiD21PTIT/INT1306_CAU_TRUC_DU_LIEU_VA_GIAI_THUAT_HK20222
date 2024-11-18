@@ -28,4 +28,4 @@ int main(){
     DFS(root);
     cout << *max_element(d+1, d+n+1);
 }
-
+//https://luyencode.net/problem/ltc_1d
