@@ -1,25 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 struct Point {
     int x, y, step;
 };
-
 int dx[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
 int dy[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
-
-
 int BFS(int sx, int sy, int ex, int ey, set<pair<int, int>> marked_point) {
     queue<Point> q;
     q.push({sx, sy, 0});
     set<pair<int, int>> visited;
     visited.insert({sx, sy});
-
     while (!q.empty()) {
         Point current = q.front();
         q.pop();
         if (current.x == ex && current.y == ey) return current.step;
-
         for (int i = 0; i < 8; i++) {
             int ox = current.x + dx[i];
             int oy = current.y + dy[i];
@@ -31,7 +25,6 @@ int BFS(int sx, int sy, int ex, int ey, set<pair<int, int>> marked_point) {
     }
     return -1;
 }
-
 int main() {
     int T;
     cin >> T;
@@ -46,7 +39,6 @@ int main() {
             cin >> x >> y1 >> y2;
             for (int y = y1; y <= y2; y++) marked_point.insert({x,y});
         }
-
         if (marked_point.find({sx, sy}) == marked_point.end() || marked_point.find({ex, ey}) == marked_point.end()) {
             cout << -1 << endl;
         } else {
@@ -54,5 +46,4 @@ int main() {
             cout << result << endl;
         }
     }
-    return 0;
 }
