@@ -57,3 +57,4 @@ int main(){
 	reverse(ans.begin(), ans.end());
 	for(int x: ans) cout<<x<<endl;
 }
+//Lưu ý: Bài trường mình thi là phiên bản cao hơn của bài sau: https://marisaoj.com/problem/137
