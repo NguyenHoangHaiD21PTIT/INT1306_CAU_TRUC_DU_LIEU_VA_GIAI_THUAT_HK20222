@@ -36,3 +36,5 @@ int main(){
         cout<<ans<<endl;
     }
 }
+//https://oj.vnoi.info/problem/fc147_eventuples
+//Bài này test trường mình siết hơn bên VNOI
