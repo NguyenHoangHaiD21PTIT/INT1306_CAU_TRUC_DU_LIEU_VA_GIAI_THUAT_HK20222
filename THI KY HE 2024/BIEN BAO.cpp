@@ -30,3 +30,4 @@ int main() {
     cout << ans << endl;
     return 0;
 }
+//Submit: https://www.spoj.com/PTIT/problems/PTIT125I/
