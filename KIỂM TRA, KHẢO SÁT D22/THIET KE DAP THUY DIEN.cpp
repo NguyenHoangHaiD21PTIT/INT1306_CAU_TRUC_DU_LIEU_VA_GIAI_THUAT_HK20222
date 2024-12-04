@@ -42,3 +42,4 @@ int main() {
 		}
 	}
 }
+//https://code.ptit.edu.vn/student/question/PYKT2047
