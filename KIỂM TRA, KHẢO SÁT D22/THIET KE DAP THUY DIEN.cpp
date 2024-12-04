@@ -45,7 +45,7 @@ int main() {
                     r = mid - 1;
                 }
             }
-            scanf("%lld", &k); 
+            printf("%lld\n", res);
         }
     }
 }
