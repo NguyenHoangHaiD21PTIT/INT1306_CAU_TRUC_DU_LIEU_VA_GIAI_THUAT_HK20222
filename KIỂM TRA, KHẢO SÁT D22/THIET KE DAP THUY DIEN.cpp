@@ -5,12 +5,12 @@ const ll MAXN = 100005;
 ll pos[MAXN], sum[MAXN], left_bound[MAXN], water[MAXN], h[MAXN];
 int main() {
     int t;
-    cin >> t;
+    scanf("%d", &t);
     while (t--) {
-        ll n; cin >> n;
-        for (ll i = 1; i <= n; i++) cin >> pos[i];
+        ll n; scanf("%lld", &n);
+        for (ll i = 1; i <= n; i++) scanf("%lld", &pos[i]);
         for (ll i = 1; i <= n; i++) {
-            cin >> h[i];
+            scanf("%lld", &h[i]); 
             sum[i] = sum[i - 1] + h[i];
         }
         stack<ll> st;
@@ -31,10 +31,10 @@ int main() {
             water[i] = water[u] + (pos[i] - pos[u]) * h[i] - (sum[i] - sum[u]);
         }
         ll q;
-        cin >> q;
+        scanf("%lld", &q);
         while (q--) {
             ll k;
-            cin >> k;
+            scanf("%lld", &k); 
             ll l = 0, r = n, res = 0;
             while (l <= r) {
                 ll mid = (l + r) / 2;
@@ -45,7 +45,7 @@ int main() {
                     r = mid - 1;
                 }
             }
-            cout << res << endl;
+            scanf("%lld", &k); 
         }
     }
 }
