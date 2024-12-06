@@ -74,9 +74,9 @@ int main(){
     BFS1(xv,yv);
     for(int i = 1; i <= n; i++){
         for(int j = 1; j <= n; j++){
-            if(dp[i][j] == dp1[i][j] && dp[i][j] != 0){
-                ans = min(ans,dp[i][j]);
-            }
+            if ( (!dp[i][j]&&dp1[i][j]&&a[i][j]=='M') ||    
+                 (dp[i][j]&&!dp1[i][j]&&a[i][j]=='T') ||
+                 (dp[i][j]&&dp1[i][j]) ) ans = min(ans, max(dp[i][j], dp1[i][j]));
         }
     }
     cout << ans << endl;
