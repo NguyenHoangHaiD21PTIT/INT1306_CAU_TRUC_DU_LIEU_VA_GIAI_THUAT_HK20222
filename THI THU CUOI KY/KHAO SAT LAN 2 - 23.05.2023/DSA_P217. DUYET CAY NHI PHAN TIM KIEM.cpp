@@ -20,11 +20,11 @@ node *insert_node(node *root, int u) {
 	return root;
 }
 
-void postOrder(node *root) {
+void preOrder(node *root) {
 	if (root == NULL) return;
 	cout << root->data << " ";
-	postOrder(root->left);
-	postOrder(root->right);
+	preOrder(root->left);
+	preOrder(root->right);
 }
 
 int main(){
@@ -35,12 +35,10 @@ int main(){
 		int n;
 		cin >> n;
 		for (int i = 0; i < n; i++) {
-			int x;
-			cin >> x;
+			int x; cin >> x;
 			root = insert_node(root, x);
 		}
-		postOrder(root);
+		preOrder(root);
 		cout << endl;
 	}
-	return 0;
 }
