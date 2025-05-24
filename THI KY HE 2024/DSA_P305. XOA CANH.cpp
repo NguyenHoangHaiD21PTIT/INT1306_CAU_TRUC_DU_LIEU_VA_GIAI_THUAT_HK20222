@@ -58,3 +58,4 @@ int main(){
 	for(int x: ans) cout<<x<<endl;
 }
 //Lưu ý: Bài trường mình thi là phiên bản cao hơn của bài sau: https://marisaoj.com/problem/137
+//21 test case
