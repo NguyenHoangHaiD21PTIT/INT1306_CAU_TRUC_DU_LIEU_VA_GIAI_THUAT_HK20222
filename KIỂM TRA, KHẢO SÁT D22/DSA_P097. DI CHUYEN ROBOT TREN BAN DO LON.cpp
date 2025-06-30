@@ -39,6 +39,6 @@ int main() {
             cin >> x >> y1 >> y2;
             for (int y = y1; y <= y2; y++) marked_point.insert({x,y});
         }
-		cout<<BFS(sx, sy, ex, ey, marked_point)<<endl;
+	cout<<BFS(sx, sy, ex, ey, marked_point)<<endl;
     }
 }
