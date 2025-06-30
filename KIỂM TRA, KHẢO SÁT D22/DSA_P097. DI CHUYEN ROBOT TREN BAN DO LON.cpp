@@ -42,3 +42,4 @@ int main() {
 	cout<<BFS(sx, sy, ex, ey, marked_point)<<endl;
     }
 }
+/* Giải thích test 1: (0,6) -> (1,6) -> (2,5) -> (2,4) -> (2,3) -> (2,2) */
