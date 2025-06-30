@@ -39,11 +39,6 @@ int main() {
             cin >> x >> y1 >> y2;
             for (int y = y1; y <= y2; y++) marked_point.insert({x,y});
         }
-        if (marked_point.find({sx, sy}) == marked_point.end() || marked_point.find({ex, ey}) == marked_point.end()) {
-            cout << -1 << endl;
-        } else {
-            int result = BFS(sx, sy, ex, ey, marked_point);
-            cout << result << endl;
-        }
+		cout<<BFS(sx, sy, ex, ey, marked_point)<<endl;
     }
 }
