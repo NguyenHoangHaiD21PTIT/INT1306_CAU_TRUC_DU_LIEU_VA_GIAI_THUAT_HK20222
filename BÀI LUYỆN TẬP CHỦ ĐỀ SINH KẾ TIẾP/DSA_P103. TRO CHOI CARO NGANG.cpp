@@ -1,71 +1,33 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-string s;
-int n, ok;
-char c;
-
-void kt(){
-	s = string(n,'O');
-}
-
-void sinh(){
-	int i = n-1;
-	while(i>=0&&s[i]=='X'){
-		s[i] = 'O';
-		i--;
-	}
-	if(i==-1){
-		ok = 0;
-	} else {
-		s[i] = 'X';
-	}
-}
-
-int check(){
-	int maxx=0,maxo=0;
-	int cntx=0, cnto=0;
-	s = s + "%";
-	for(int i=0;i<s.size();i++){
-		if(s[i]=='O'){
-			cnto++;
-			maxx=max(maxx,cntx);
-			cntx=0;
-		} else if (s[i]=='X'){
-			cntx++;
-			maxo=max(maxo,cnto);
-			cnto=0;
+int n; char c;
+bool isValid(const string &s) {
+	int maxX = 0, maxO = 0, cntX = 0, cntO = 0;
+	for (char ch : s) {
+		if(ch == 'X') {
+			cntX++;
+			maxX = max(maxX, cntX);
+			cntO = 0;
 		} else {
-			maxx=max(maxx,cntx);
-			maxo=max(maxo,cnto);
+			cntO++;
+			maxO = max(maxO, cntO);
+			cntX = 0;
 		}
 	}
-	s.pop_back();
-	if(c=='X'){
-		if(maxx>maxo&&maxx>=5){
-			return 1;
-		} else {
-			return 0;
-		}
-	} else {
-		if(maxo>maxx&&maxo>=5){
-			return 1;
-		} else {
-			return 0;
-		}
-	}
+	if(c == 'X') return maxX > maxO && maxX >= 5;
+	else return maxO > maxX && maxO >= 5;
 }
-
-int main(){
-	int t;
-	cin>>t;
-	while(t--){
-		cin>>n>>c;
-		kt();
-		ok=1;
-		while(ok==1){
-			if(check()) cout<<s<<endl;
-			sinh();
+int main() {
+	int t; cin >> t;
+	while(t--) {
+		cin >> n >> c;
+		int total = 1 << n;
+		for (int mask = 0; mask < total; ++mask) {
+			string s;
+			for(int i = n-1; i>=0; --i) 
+				s += ((mask >> i) & 1) ? 'X' : 'O';
+			if(isValid(s)) cout << s << endl;
 		}
 	}
 }
