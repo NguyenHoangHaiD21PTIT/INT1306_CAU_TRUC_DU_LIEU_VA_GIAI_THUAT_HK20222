@@ -1,97 +1,78 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string makeKey(int x, int y) {
-    return to_string(x) + "," + to_string(y);
+typedef tuple<int, int, int> State; // x, y, hướng (0: Ox, 1: Oy)
+
+string makeKey(int x, int y, int dir) {
+    return to_string(x) + "," + to_string(y) + "," + to_string(dir);
 }
 
 int main() {
-    int n, stX, stY, enX, enY;
-    cin >> n >> stX >> stY >> enX >> enY;
-
-    unordered_map<int, vector<pair<int, int>>> mpX; // mpX[i] lưu những điểm có cùng hoành độ là i 
-    unordered_map<int, vector<pair<int, int>>> mpY; // mpY[i] lưu những điểm có cùng tung độ là i 
-    
-    mpX[stX].push_back({stX, stY});
-    mpY[stY].push_back({stX, stY});
-    mpX[enX].push_back({enX, enY});
-    mpY[enY].push_back({enX, enY});
-
-    for (int i = 1; i <= n; ++i) {
+    int n, xa, ya, xb, yb;
+    cin >> n >> xa >> ya >> xb >> yb;
+    //Lưu toạ độ các điểm
+    unordered_map<int, vector<int>> row, col; // row[y]: chứa x, col[x]: chứa y
+    set<pair<int, int>> mirrors;
+    // Thêm điểm A và B vào danh sách gương để xử lý như các điểm bình thường
+    mirrors.insert({xa, ya});
+    mirrors.insert({xb, yb});
+    for (int i = 0; i < n; ++i) {
         int x, y;
         cin >> x >> y;
-        mpX[x].push_back({x, y});
-        mpY[y].push_back({x, y});
+        mirrors.insert({x, y});
     }
-
-    int check = 0;
-    queue<pair<int, int>> q;
-    unordered_map<string, bool> visited;
-    unordered_map<string, int> dis;
-
-    string startKey = makeKey(stX, stY);
-    string endKey = makeKey(enX, enY);
-
-    q.push({stX, stY});
-    visited[startKey] = true;
-    dis[startKey] = 0;
-
+    for (auto [x, y] : mirrors) {
+        row[y].push_back(x);
+        col[x].push_back(y);
+    }
+    //Khởi tạo BFS
+    queue<State> q;
+    map<State, int> dist;
+    // Bắt đầu BFS với cả 2 hướng
+    q.push({xa, ya, 0});
+    q.push({xa, ya, 1});
+    dist[{xa, ya, 0}] = 0;
+    dist[{xa, ya, 1}] = 0;
+    //Lặp
     while (!q.empty()) {
-        pair<int, int> front = q.front();
-        int x = front.first;
-        int y = front.second;
-        q.pop();
-        
-        string scurPoint = makeKey(x, y); // Chuyển điểm thành string
-        int currentDist = dis[scurPoint]; // Số lần đổi hướng để đến được điểm
-        
-        if (x == enX && y == enY) {
-            check = 1;
-            cout << currentDist << endl;
-            break;
+        auto [x, y, dir] = q.front(); q.pop();
+        int d = dist[{x, y, dir}];
+        if (x == xb && y == yb) {
+            cout << d << '\n';
+            return 0;
         }
-        
-        // Duyệt các điểm chung hoành độ
-        for (pair<int, int>& p : mpX[x]) {
-            int nx = p.first;
-            int ny = p.second;
-            string nextKey = makeKey(nx, ny); // Tạo string cho điểm
-            if (nx == enX && ny == enY) {
-                cout << currentDist << endl;
-                return 0;
-            } else if (!visited[nextKey]) {
-                q.push({nx, ny});
-                visited[nextKey] = true;
-                dis[nextKey] = currentDist + 1;
+        if (dir == 0) { // Đi theo Ox (hoành độ thay đổi, tung độ giữ nguyên)
+            for (int nx : row[y]) {
+                if (nx == x) continue;
+                State Straight = {nx, y, 0};//Muốn đi đến điểm khác giữ nguyên hướng thì cứ đi k cần gương
+                if (!dist.count(Straight)) {
+                    dist[Straight] = d;
+                    q.push(Straight);
+                }
+                State turn = {nx, y, 1};
+                if (!dist.count(turn)) {
+                    dist[turn] = d + 1;
+                    q.push(turn);
+                }
             }
-        }
-
-        // Duyệt các điểm chung tung độ
-        for (pair<int, int>& p : mpY[y]) {
-            int nx = p.first;
-            int ny = p.second;
-            string nextKey = makeKey(nx, ny); // Tạo string cho điểm
-            if (nx == enX && ny == enY) {
-                cout << currentDist << endl;
-                return 0;
-            } else if (!visited[nextKey]) {
-                q.push({nx, ny});
-                visited[nextKey] = true;
-                dis[nextKey] = currentDist + 1;
+            row[y].clear();
+        } else { // Đi theo Oy (tung độ thay đổi, hoành độ giữ nguyên)
+            for (int ny : col[x]) {
+                if (ny == y) continue;
+                State goStraight = {x, ny, 1};
+                if (!dist.count(goStraight)) {
+                    dist[goStraight] = d;
+                    q.push(goStraight);
+                }
+                State turn = {x, ny, 0};
+                if (!dist.count(turn)) {
+                    dist[turn] = d + 1;
+                    q.push(turn);
+                }
             }
+            col[x].clear();
         }
     }
-
-    if (!check) {
-        cout << -1 << endl;
-    }
-
+    cout << -1 << '\n';
     return 0;
 }
-/*
-4 0 0 9 3
-1 7
-0 3
-3 0
-3 3
-*/
