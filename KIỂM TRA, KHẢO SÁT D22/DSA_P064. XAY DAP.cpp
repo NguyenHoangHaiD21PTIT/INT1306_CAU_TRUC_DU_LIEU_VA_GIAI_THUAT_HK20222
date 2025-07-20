@@ -24,8 +24,8 @@ int main() {
         }
         h[0] = 1000111000;
         pos[0] = -1;
-	//Tổng lượng nước đến bức tường đang xét = Tổng lượng nước từ đầu đến bức tường cao hơn nó + tổng lượng nước từ tường đang xét đến bức tường cuối cùng <= tường đang xét (đã trừ đi tổng chiều cao các cột từ u+1 -->i 
-	//						              water[u]                     +        (u + 1 ->i) * h[i]                                                             sum[i] - sum[u]
+	//Tổng lượng nước đến bức tường đang xét = Tổng lượng nước từ đầu đến bức tường cao hơn nó + tổng lượng nước từ tường đang xét (Gọi là X) đến bức tường cuối cùng bên tay trái X có chiều cao <= tường đang xét (đã trừ đi tổng chiều cao các cột từ u+1 -->i 
+	//						              water[u]                     +                                            (u + 1 ->i) * h[i]                                                             sum[i] - sum[u]
         for (ll i = 1; i <= n; i++) {
             ll u = left_bound[i];
             water[i] = water[u] + (pos[i] - pos[u]) * h[i] - (sum[i] - sum[u]);
