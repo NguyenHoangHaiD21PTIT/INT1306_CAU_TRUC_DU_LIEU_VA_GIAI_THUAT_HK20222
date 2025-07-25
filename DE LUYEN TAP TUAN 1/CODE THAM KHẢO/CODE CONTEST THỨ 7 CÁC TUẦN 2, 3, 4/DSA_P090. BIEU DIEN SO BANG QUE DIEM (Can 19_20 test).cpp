@@ -36,3 +36,4 @@ int main() {
     if (!ans.empty()) cout << ans;
     else cout << 0;
 }
+//Link submit: https://luyencode.net/problem/lock
