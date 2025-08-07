@@ -2,7 +2,7 @@
 using namespace std;
 
 int n, ok, a[100];
-vector<pair<string, int>> v; // Khai báo biến toàn cục
+vector<pair<string, int>> v; //Lưu tập con (Dạng String) và tổng
 
 void kt() {
     for (int i = 0; i < n; i++) a[i] = 0;
@@ -18,50 +18,28 @@ void sinh() {
     else a[i] = 1;
 }
 
-bool cmp(const pair<string, int> &p1, const pair<string, int> &p2) {
+bool cmp(pair<string, int> &p1, pair<string, int> &p2) {
     if (p1.second != p2.second) return p1.second < p2.second;
     return p1.first < p2.first;
 }
 
 int main() {
-    cin >> n;
-    int k; cin >> k;
-
-    kt();
-    ok = 1;
-
+    int k; cin >> n >> k;
     int b[n];
     for (int i = 0; i < n; i++) cin >> b[i];
-
-    // Sinh các tổ hợp
+    kt(); ok = 1;
     while (ok == 1) {
         int tong = 0;
         string s = "";
-
-        // Tính tổng và tạo chuỗi tổ hợp
         for (int i = 0; i < n; i++) {
             if (a[i]) {
-                tong += b[n - i - 1];  // Tính tổng các phần tử theo mảng nhị phân
-                s += to_string(n - i) + " "; // Tạo chuỗi tổ hợp
+                tong += b[i];  
+                s += to_string(i + 1) + " "; //get index
             }
         }
-
-        // Nếu tổng nhỏ hơn k, thêm vào vector `v`
-        reverse(s.begin(), s.end());
-        if (tong < k&&s!="") v.push_back({s.substr(1), tong});
-
-        // Tạo tổ hợp tiếp theo
+        if (s != "" && tong < k) v.push_back({s.substr(0, s.size() - 1), tong});
         sinh();
     }
-
-    // Sắp xếp vector `v` sử dụng hàm cmp
     sort(v.begin(), v.end(), cmp);
-
-    // Xuất các tổ hợp đã sắp xếp
-    for (auto p : v) {
-        cout << p.first << endl; // In chuỗi tổ hợp trước
-        cout << "Sum = " << p.second << endl; // In tổng sau
-    }
-
-    return 0;
+    for (auto p : v) cout << p.first << endl << "Sum = " << p.second << endl; 
 }
