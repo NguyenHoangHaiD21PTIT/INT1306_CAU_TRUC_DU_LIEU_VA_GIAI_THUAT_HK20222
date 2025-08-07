@@ -28,3 +28,4 @@ int main() {
     }
 }
 /* Bài này đề bị sai nhé: Chi phí để tăng a[i] lên 1 đơn vị là b[i]. Bạn KHÔNG được phép giảm, chỉ được phép tăng a[i] lên 0, 1 hoặc 2 đơn vị */
+
