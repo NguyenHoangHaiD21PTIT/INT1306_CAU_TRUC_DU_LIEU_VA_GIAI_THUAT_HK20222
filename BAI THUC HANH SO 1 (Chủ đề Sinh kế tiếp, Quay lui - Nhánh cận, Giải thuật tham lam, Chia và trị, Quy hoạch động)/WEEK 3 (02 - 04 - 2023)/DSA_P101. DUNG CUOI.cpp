@@ -1,25 +1,21 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-
-int main(){
-	int n1;//so xau ban dau
-	cin>>n1;
-	set<string>st; // luu tap xau ban dau
-	while(n1--){
-		string s;
-		cin>>s;
-		st.insert(s);
+int main() {
+    int n; cin >> n;
+    set<string> st;
+    while (n--) {
+        string s; cin >> s;
+        st.insert(s);
+    }
+    string s2; cin >> s2;
+    vector<string> v;
+    for (auto &x : st) {
+        if (x != s2) v.push_back(x);
 	}
-	string s2;
-	cin>>s2;
-	vector<string>v; //luu cac tu khac s2
-	for(auto i: st){
-		if(i!=s2) v.push_back(i);
-	}
-	for(auto i: v) cout<<i<<" ";
-	cout<<s2<<endl;
-	while(next_permutation(v.begin(),v.end())!=false){
-		for(auto i: v) cout<<i<<" ";
-		cout<<s2<<endl;
-	}
+    for (auto &x : v) cout << x << ' ';
+    cout << s2 << '\n';
+    while (next_permutation(v.begin(), v.end())) {
+        for (auto &x : v) cout << x << ' ';
+        cout << s2 << '\n';
+    }
 }
