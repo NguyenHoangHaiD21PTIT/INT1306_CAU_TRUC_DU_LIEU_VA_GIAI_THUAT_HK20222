@@ -1,9 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 long long n, MOD;
-
 struct matrix {
-    long long a[3][3];
+    long long a[2][2];
 };
 
 long long mulMod(long long a, long long b) {
@@ -16,12 +15,12 @@ long long mulMod(long long a, long long b) {
 
 matrix mulMatrix(matrix A, matrix B) {
     matrix ans;
-    for (int i = 1; i <= 2; i++) {
-        for (int j = 1; j <= 2; j++) ans.a[i][j] = 0;
+    for (int i = 0; i <= 1; i++) {
+        for (int j = 0; j <= 1; j++) ans.a[i][j] = 0;
     }
-    for (int i = 1; i <= 2; i++) {
-        for (int j = 1; j <= 2; j++) {
-            for (int k = 1; k <= 2; k++) ans.a[i][j] = (ans.a[i][j] + mulMod(A.a[i][k], B.a[k][j])) % MOD;
+    for (int i = 0; i <= 1; i++) {
+        for (int j = 0; j <= 1; j++) {
+            for (int k = 0; k <= 1; k++) ans.a[i][j] = (ans.a[i][j] + mulMod(A.a[i][k], B.a[k][j])) % MOD;
         }
     }
     return ans;
@@ -30,8 +29,8 @@ matrix mulMatrix(matrix A, matrix B) {
 matrix powMod(matrix A, long long p) {
     if (p == 0) {
         matrix I;
-        for (int i = 1; i <= 2; i++) {
-            for (int j = 1; j <= 2; j++) I.a[i][j] = (i == j) ? 1 : 0;
+        for (int i = 0; i <= 1; i++) {
+            for (int j = 0; j <= 1; j++) I.a[i][j] = (i == j) ? 1 : 0;
         }
         return I;
     }
@@ -43,15 +42,19 @@ matrix powMod(matrix A, long long p) {
 }
 
 int main() {
-    int t;
-    cin >> t;
-    matrix A;
-    A.a[1][1] = 1; A.a[1][2] = 1;
-    A.a[2][1] = 1; A.a[2][2] = 0;
+    int t; cin >> t;
     while (t--) {
-        cin >> n>>MOD;
-        matrix X = powMod(A, n - 1);
-        long long Fn = (X.a[1][1] + X.a[1][2]) % MOD;
-        cout << Fn << endl;
+        cin >> n >> MOD;
+        if (n <= 2) { 
+            cout << n % MOD << endl; 
+            continue; 
+        }
+        matrix base;
+        base.a[0][0] = 1; base.a[0][1] = 1; 
+        base.a[1][0] = 1; base.a[1][1] = 0; 
+        matrix M = powMod(base, n - 1);
+        long long Tn = (M.a[0][0] + M.a[0][1]) % MOD;
+        cout << Tn << endl;
     }
 }
+
