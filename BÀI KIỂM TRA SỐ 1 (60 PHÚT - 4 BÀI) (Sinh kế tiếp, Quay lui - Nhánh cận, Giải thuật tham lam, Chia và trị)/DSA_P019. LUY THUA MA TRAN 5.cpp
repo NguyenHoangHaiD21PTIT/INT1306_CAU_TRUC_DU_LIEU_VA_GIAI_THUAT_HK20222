@@ -1,46 +1,49 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-const int MOD = 1e9 + 7;
-int n;
-struct matrix{
-    long long a[15][15];
+long long n, k, MOD = 1e9 + 7;
+struct matrix {
+    long long a[12][12];
 };
 
-matrix mul(matrix A, matrix B){
-    matrix res;
-    for(int i = 1;i<=n;i++){
-        for(int j = 1;j<=n;j++) res.a[i][j] = 0;
+matrix mulMatrix(matrix A, matrix B) {
+    matrix ans;
+    for (int i = 0; i <= n - 1; i++) {
+        for (int j = 0; j <= n - 1; j++) ans.a[i][j] = 0;
     }
-    for(int i = 1;i<=n;i++){
-        for(int j = 1;j<=n;j++){
-            for(int k = 1;k<=n;k++) res.a[i][j] = (res.a[i][j] + A.a[i][k] * B.a[k][j]) % MOD;
+    for (int i = 0; i <= n - 1; i++) {
+        for (int j = 0; j <= n - 1; j++) {
+            for (int k = 0; k <= n - 1; k++) ans.a[i][j] = (ans.a[i][j] +A.a[i][k] * B.a[k][j]) % MOD;
         }
     }
-    return res;
-}
-
-matrix powMod(matrix A, long long p){
-    if(p==1) return A;
-    matrix tmp = powMod(A, p/2);
-    matrix ans = mul(tmp, tmp);
-    if(p%2) ans = mul(ans, A);
     return ans;
 }
 
-int main(){
-    int t;
-    cin>>t;
-    while(t--){
-        cin>>n;
-        int k; cin>>k;
-        matrix A;
-        for(int i =1;i<=n;i++){
-            for(int j = 1;j<=n;j++) cin>>A.a[i][j];
+matrix powMod(matrix A, long long p) {
+    if (p == 0) {
+        matrix I;
+        for (int i = 0; i <= n - 1; i++) {
+            for (int j = 0; j <= n - 1; j++) I.a[i][j] = (i == j) ? 1 : 0;
         }
-        A = powMod(A, k);
-        long long ans = 0;
-        for(int i = 1;i<=n;i++) ans = (ans + A.a[n][i]) % MOD;
-        cout<<ans<<endl;
+        return I;
     }
+    if (p == 1) return A;
+    matrix tmp = powMod(A, p / 2);
+    matrix ans = mulMatrix(tmp, tmp);
+    if (p % 2 == 1) ans = mulMatrix(ans, A);
+    return ans;
 }
 
+int main() {
+    int t; cin >> t;
+    while (t--) {
+        cin >> n >> k;
+        matrix A;
+        for (int i = 0; i <= n - 1; i++) {
+            for (int j = 0; j <= n - 1; j++) cin >> A.a[i][j];
+        }
+        matrix ans = powMod(A, k);
+        long long res = 0;
+        for (int j = 0; j <= n - 1; j++) res = (res + ans.a[n - 1][j]) % MOD;
+        cout << res << '\n';
+    }
+}
