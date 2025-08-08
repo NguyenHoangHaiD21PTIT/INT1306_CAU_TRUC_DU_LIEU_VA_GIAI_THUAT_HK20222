@@ -1,33 +1,36 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
-
-const long long MOD = 1e15 + 7;
-long long n;
-
+long long n, MOD = 1e15 + 7;
 struct matrix {
-    long long a[5][5]; 
+    long long a[4][4];
 };
-
-
-matrix mulMatrix(matrix A, matrix B) {
-    matrix ans;
-    for (int i = 1; i <= 4; i++) {
-        for (int j = 1; j <= 4; j++) ans.a[i][j] = 0;
+long long mulMod(long long a, long long b) {
+    a %= MOD, b %= MOD;
+    long long res = 0;
+    while (b > 0) {
+        if (b % 2) res = (res + a) % MOD;
+        a = (a + a) % MOD;
+        b /= 2;
     }
-    for (int i = 1; i <= 4; i++) {
-        for (int j = 1; j <= 4; j++) {
-            for (int k = 1; k <= 4; k++) ans.a[i][j] = (ans.a[i][j] + A.a[i][k] * B.a[k][j]) % MOD;
+    return res;
+}
+matrix mulMatrix(matrix A, matrix B) {
+    matrix res;
+    for (int i = 0; i <= 3; i++) {
+        for (int j = 0; j <= 3; j++) res.a[i][j] = 0;
+    }
+    for (int i = 0; i <= 3; i++){
+        for (int j = 0; j <= 3; j++){
+            for (int k = 0; k <= 3; k++) res.a[i][j] = (res.a[i][j] + mulMod(A.a[i][k], B.a[k][j])) % MOD;
         }
     }
-    return ans;
+    return res;
 }
-
 matrix powMod(matrix A, long long p) {
     if (p == 0) {
         matrix I;
-        for (int i = 1; i <= 4; i++) {
-            for (int j = 1; j <= 4; j++) I.a[i][j] = (i == j) ? 1 : 0;
+        for (int i = 0; i <= 3; i++) {
+            for (int j = 0; j <= 3; j++) I.a[i][j] = (i == j) ? 1 : 0;
         }
         return I;
     }
@@ -39,23 +42,20 @@ matrix powMod(matrix A, long long p) {
 }
 
 int main() {
-    int t;
-    cin >> t;
+    int t; cin >> t;
     while (t--) {
         cin >> n;
-        if (n <= 5) {
-            vector<int> b = {1, 3, 6, 12, 23};
-            cout << b[n - 1] << endl;
-        } else {
-            matrix T;
-            T.a[1][1] = 1; T.a[1][2] = 0; T.a[1][3] = 0; T.a[1][4] = 0;
-            T.a[2][1] = 0; T.a[2][2] = 1; T.a[2][3] = 1; T.a[2][4] = 0;
-            T.a[3][1] = 1; T.a[3][2] = 1; T.a[3][3] = 0; T.a[3][4] = 1;
-            T.a[4][1] = 0; T.a[4][2] = 1; T.a[4][3] = 0; T.a[4][4] = 0;
-            matrix X = powMod(T, n + 2);
-            long long Tn = X.a[3][1] - 1;
-            cout << Tn << endl;
-        }
+        if (n == 1) { cout << 1 % MOD << endl; continue; }
+        if (n == 2) { cout << 3 % MOD << endl; continue; }
+        if (n == 3) { cout << 6 % MOD << endl; continue; }
+        matrix base;
+        base.a[0][0] = 1; base.a[0][1] = 1; base.a[0][2] = 1; base.a[0][3] = 1;
+        base.a[1][0] = 0; base.a[1][1] = 1; base.a[1][2] = 1; base.a[1][3] = 1;
+        base.a[2][0] = 0; base.a[2][1] = 1; base.a[2][2] = 0; base.a[2][3] = 0;
+        base.a[3][0] = 0; base.a[3][1] = 0; base.a[3][2] = 1; base.a[3][3] = 0;
+        matrix M = powMod(base, n - 3);
+        long long ans = (M.a[0][0] * 6 + M.a[0][1] * 3 + M.a[0][2] * 2 + M.a[0][3] * 1) % MOD;  
+        cout << ans << endl;
     }
-    return 0;
 }
+
