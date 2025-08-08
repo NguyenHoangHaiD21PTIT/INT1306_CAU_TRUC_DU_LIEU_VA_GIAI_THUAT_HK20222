@@ -1,39 +1,34 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int n; string s = "ABC"; vector<string>v;
-
-int check(string s){
-	int cnta = 0, cntb = 0, cntc = 0;
-	for(int i=0;i<s.size();i++){
-		if(s[i]=='A') cnta++;
-		else if (s[i]=='B') cntb++;
-		else if (s[i]=='C') cntc++;
-	}
-	if(cnta!=0&&cntb!=0&&cntc!=0&&cnta<=cntb&&cntb<=cntc) return 1;
-	else return 0;
+int n;
+bool check(string &x) {
+    int a = 0, b = 0, c = 0;
+    for (char ch : x) {
+        if (ch == 'A') ++a;
+        else if (ch == 'B') ++b;
+        else ++c;
+    }
+    return a && b && c && a <= b && b <= c;
 }
 
-void gen(){
-	queue<string>q;
-	for(char i: s){
-		string tmp = ""; tmp+=i;
-		q.push(tmp);
-	}
-	while(1){
-		string x = q.front();
-		q.pop();
-		if(x.size()==n) break;
-		for(char i: s){
-			string x1 = x + i;
-			q.push(x1);
-			if(check(x1)&&x1.size()>=3) v.push_back(x1);
-		}
-	}
+void gen() {
+    queue<string> q;
+    for (char ch = 'A'; ch <= 'C'; ++ch) q.push(string(1, ch));
+    vector<string> v;
+    while (!q.empty()) {
+        string x = q.front(); q.pop();
+        if ((int)x.size() == n) continue;
+        for (char ch = 'A'; ch <= 'C'; ++ch) {
+            string nx = x + ch;
+            q.push(nx);
+            if ((int)nx.size() >= 3 && check(nx)) v.push_back(nx);
+        }
+    }
+    for (auto &str : v) cout << str << '\n';
 }
 
-int main(){
-	cin>>n;
-	gen();
-	for(auto i: v) cout<<i<<endl;
+int main() {
+    cin >> n;
+    gen();
 }
