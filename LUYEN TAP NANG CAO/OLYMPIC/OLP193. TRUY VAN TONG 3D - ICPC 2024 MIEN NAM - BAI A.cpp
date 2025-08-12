@@ -64,3 +64,5 @@ int main() {
     }
     return 0;
 }
+// Xem thêm về công thức mảng cộng dồn 3 chiều tai mục 3 bài viết: https://viblo.asia/p/quy-hoach-dong-55-mang-tong-tien-to-va-mang-hieu-phan-1-r1QLx6104Aw
+// Xem thêm về cây BIT/Fenwick: https://www.youtube.com/watch?v=LEy9NdrlEGo&t=2681s
