@@ -44,3 +44,5 @@ int main() {
         cout << cost[x][y] << '\n';
     }
 }
+// Đọc thêm về SPFA tại: https://wiki.vnoi.info/algo/graph-theory/spfa
+
