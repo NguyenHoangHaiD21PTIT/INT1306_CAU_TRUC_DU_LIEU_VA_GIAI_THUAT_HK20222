@@ -8,7 +8,6 @@ int main() {
     vector<long long> p(n + 1, 0);
     //pre[i] là tính đến i - 1
     for (int i = 0; i < n; ++i) p[i + 1] = p[i] + a[i];
-    for (int i = 0; i < n; ++i) cout << p[i] << " ";
     cout << endl;
     deque<int> dq;               
     long long ans = LLONG_MIN; 
