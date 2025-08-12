@@ -1,26 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 
-// Phân tích thừa số nguyên tố
-vector<pair<long long, int>> phanTichThuaSo(long long k) {
-    vector<pair<long long, int>> thuaSo;
-    for (long long d = 2; d * d <= k; ++d) {
+vector<pair<ll, int>> fac(long long k) {
+    vector<pair<ll, int>> res;
+    for (ll d = 2; d * d <= k; ++d) {
         if (k % d == 0) {
             int dem = 0;
             while (k % d == 0) {
                 k /= d;
                 ++dem;
             }
-            thuaSo.push_back({d, dem});
+            res.push_back({d, dem});
         }
     }
-    if (k > 1) thuaSo.push_back({k, 1});
-    return thuaSo;
+    if (k > 1) res.push_back({k, 1});
+    return res;
 }
 
 // Hàm tính số lần xuất hiện của số nguyên tố p trong N!
-long long dem(long long n, long long p) {
-    long long dem = 0;
+ll dem(ll n, ll p) {
+    ll dem = 0;
     while (n >= p) {
         dem += n / p;
         n /= p;
@@ -29,33 +29,31 @@ long long dem(long long n, long long p) {
 }
 
 // Hàm tính số nguyên M lớn nhất sao cho K^M là ước của N!
-long long timMMax(long long n, long long k) {
-    vector<pair<long long, int>> thuaSo = phanTichThuaSo(k);
-    long long minM = LLONG_MAX;
-    for (auto& ts : thuaSo) {
-        long long p = ts.first;//thừa số
+ll maxPow(ll n, ll k) {
+    vector<pair<ll, int>> f = fac(k);
+    ll ans = LLONG_MAX;
+    for (auto& ts: f) {
+        ll p = ts.first;//thừa số
         int e = ts.second;//số mũ
-        long long demP = dem(n, p);
-        minM = min(minM, demP / e);
+        ll demP = dem(n, p);
+        ans = min(ans, demP / e);
     }
-    return minM;
+    return ans;
 }
 
 int main() {
-    int soTest;
-    cin >> soTest;
-    while (soTest--) {
-        long long N, K;
+    int t; cin >> t;
+    while (t --) {
+        ll N, K;
         cin >> N >> K;
-        cout << timMMax(N, K) << '\n';
+        cout << maxPow(N, K) << '\n';
     }
     return 0;
 }
-/*Giả sử N!=a^x.b^y.c^z. R
-K = a^x1.b^x2.c^x3 --> K^M = a^Mx1.b^Mx2.c^Mx3
-Để N! chia hết cho K^M thì Mx1<=x, Mx2<=y, Mx3<=z
--->M<=x1/x1, M<=y/x2, M<=z/3
-M nguyên--> M<=[
--->M <= min([x1/x1],[y/x2], [z/x3])
+/*Giả sử N! = a^x.b^y.c^z. 
+K = a^x1.b^x2.c^x3 --> K^M = a ^ (M * x1) * b ^ (M * x2) * c ^ (M * x3)
+Để N! chia hết cho K^M thì M * x1 <= x, M * x2 <= y, M * x3 <= z
+-->M <= x / x1, M <= y / x2, M <= z / x3
+M nguyên -->M <= min([x / x1], [y / x2], [z / x3])
 Dấu bằng xảy ra M đạt GTLN = min([x1/x1],[y/x2], [z/x3])
 */
