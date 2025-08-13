@@ -123,9 +123,13 @@ a'. Nếu B[l] = 1 thì coi như xong. Khỏi tìm
 a. Hiển nhiên i <= l, r <= R. Ta xét lần lượt từng l chạy từ i đến R. Với mỗi l, ta cố định nó, chặt nhị phân trên [l, R] để tìm r min
 b. Nếu dãy từ l đến R có GCD khác 1 rồi, càng kéo ngắn r thì GCD càng to --> Tăng l lên xét tiếp
 c. Sau khi xác định xong dãy B[l] ... B[R] có GCD là 1 rồi, ta thử kéo ngắn r xem được không
+Độ phức tạp: Con trỏ i luôn tăng, k quá N lần. Con trỏ R cũng vậy --> ĐPT O (N + N)
+Chặt nhi phân: log(N) --> O(NlogN)
 Chú ý rằng: r càng bé, GCD càng to 
 r = mid mà GCD vẫn là 1, ok, thử kéo r về nửa bên trái
 r = mid mà GCD khác 1 --> r quá bé, dãy quá ngắn --> Phải kéo r về nửa phải để hope GCD bé đi
 d. Sau khi xác định xong cận r cho dãy min rồi, cập nhật dãy nếu r tồn tại
 5. Sau khi khai thác triệt để dãy B[i] ... B[R] rồi, ta xét vị trí bắt đầu mới từ R + 1
+ĐPT chung toàn bài: O(T * N * logN)
 */
+
