@@ -23,9 +23,11 @@ int main() {
     Tuy nhiên đây là trong mảng số, nên loại ta cần bỏ đúng trị số của nó
     Ví dụ như trong số 12345, ta muốn loại đi 12 (Lấy đoạn 45) thì phải lấy: 12345 - 123*10^2 (2 là số chữ số đoạn đang xét) 
     Tức là: Xâu con dài 2, Hash[4] = 12345, 45 thì index bắt đầu là từ 3 (0 - based), Hash[2] = 123
-    Như vậy, để ra Hash [3 ... 4] = Hash[4] - Hash[2] * 10^ 2*/
+    Như vậy, để ra Hash [3 ... 4] = Hash[4] - Hash[2] * 10^ 2
+    Tổng quát, muốn tính Hash [x ... y] = Hash[y] - Hash [x - 1] * BASE ^ (y - x + 1)*/
     for (int i = 1; i <= n - m; ++i) {
         long long curHash = (Hash[i + m - 1] - Hash[i - 1] * Pow[m] % MOD + MOD) % MOD;
         if (curHash == k) cout << i + 1 << ' ';
     }
 }		
+
