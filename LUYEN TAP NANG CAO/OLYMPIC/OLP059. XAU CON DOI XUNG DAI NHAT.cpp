@@ -38,9 +38,11 @@ void sol(){
     // Với mỗi i, ta chặt nhị phân trên chiều dài. Và ta chẳng biết đó là xâu đối xứng len chẵn hay lẻ cả
     // TH1: [x ... i][i ... y] tạo thành 2 xâu ngược nhau, mỗi xâu dài len --> Đối xứng dài 2 * len
     // TH2: [x ... i - 1] i [i + 1 ... y], 2 xâu con kia ngược nhau, mỗi xâu dài len --> Đối xứng dài 2 * len + 1
-    // Lí do chặt nhị phân theo chiều dài vì:
-    // Xâu S đối xứng rồi, thì thử thêm các X chữ cái vào trước và X chữ cái sau xâu S xem còn đx nữa không --> Tăng độ dài
-    // Xâu S không đối xứng, thì thêm 1 lượng chữ cái bằng nhau 2 bên cũng vậy --> Không được lợi gì --> Giảm độ dài đi
+    // Lý do chặt nhị phân theo chiều dài:
+    // - Nếu S đã đối xứng ở bán kính mid, thử tăng thêm X ký tự hai bên
+    //   (thêm đúng 1 cặp biên mỗi lần) vẫn có thể còn đối xứng ⇒ thử TĂNG độ dài.
+    // - Nếu S không đối xứng ở bán kính mid, thì lỗi nằm BÊN TRONG;
+    //   thêm bằng nhau ở hai biên không sửa được lỗi đó ⇒ phải GIẢM độ dài.
     for (int i = 1; i <= n; i++){ // O(n)
         //Xâu đối xứng độ dài chẵn. Độ dài sẽ là 2 mid. Nửa đầu là [i về đầu] dài mid, thêm [i + 1 về sau] dài mid
         //i - l + 1 = mid ->l = i + 1 - mid; r - (i + 1) + 1 = mid -->r = mid + i
