@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 int a[1005][1005], d[1005][1005], visited[1005][1005];//d[x][y] là số bước di chuyển ít nhất từ ô (0, 0) đễn (x, y)
-int dx[3] = {1, 0, 1};
-int dy[3] = {0, 1, 1};
-
 int main() {
     int t;
     cin >> t;
@@ -13,15 +10,13 @@ int main() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) cin >> a[i][j];
         }
-        //Bước 1: Khởi tạo qe, đưa cấu hình cơ sở
         memset(d, 0, sizeof(d));
         memset(visited, 0, sizeof(visited));
         queue<pair<int, int>> q;
         q.push({0, 0});
         visited[0][0] = 1;
         d[0][0] = 0;
-	int check = 0;
-	//Bước 2: Lấy đỉnh hàng đợi, loang dần
+        int check = 0;
         while (!q.empty()) {
             pair<int, int> p = q.front();
             q.pop();
@@ -53,6 +48,6 @@ int main() {
                 }
             }
         }
-        if(!check) cout<<-1<<endl;
+        if(!check) cout << -1 << endl;
     }
 }
