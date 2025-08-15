@@ -21,9 +21,13 @@ void solution() {
     ll left = 1, right = n;
     while (left <= right) {
         ll mid = (left + right) / 2;
-        // lưu tất cả hash các dãy con có độ dài mid, kết thúc tại i
+        // Lưu tất cả hash các dãy con có độ dài mid, kết thúc tại i. ==> i - st + 1 = mid ==> st = i - mid + 1
         vector<ll> d;
         for (ll i = mid; i <= n; i++) d.push_back(get(i - mid + 1, i));
+        // Ví dụ như độ dài 3: cnt[123] = 5, cnt[456] = 7. Đề cần xuất hiện ít nhất 8 lần
+        // Ta đang xét xâu dài mid, end tại i, như vậy, mở rộng đương nhiên sẽ về bên tay trái
+        // Có 5 xâu 123 --> Cũng chỉ có thể có tối đa 5 xâu X123 giống hệt nhau thôi, tương tự, tối đa 8 xâu X456 như nhau
+        // Mà X123 đương nhiên khác X456. Như vậy, nếu đã xét đến chiều dài mid, nhưng không hash nào đủ số lượng xâu thì nâng chiều dài lên là vô nghĩa  
         sort(d.begin(), d.end());
         ll cnt = 1;
         bool found = false;
