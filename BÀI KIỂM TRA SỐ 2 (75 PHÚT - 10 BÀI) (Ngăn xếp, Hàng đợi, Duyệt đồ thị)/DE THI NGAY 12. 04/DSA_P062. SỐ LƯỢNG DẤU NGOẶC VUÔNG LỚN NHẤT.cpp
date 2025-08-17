@@ -1,18 +1,15 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-
 int main() {
-    string s;
-    cin >> s;
-
+    string s; cin >> s;
     int cnt = 0, res = 0;
     stack<pair<char, int>> st;
     st.push({'*', 0}); // Để tránh stack rỗng
-
     for (char i : s) {
         if (!st.empty() && ((i == ')' && st.top().first == '(') || (i == ']' && st.top().first == '['))) {
-            // Đóng và có mở tương ứng --> Là dãy ngoặc đúng --> Xóa dấu mở ngoặc cùng cấp
+            // Đóng và có mở tương ứng --> Là dãy ngoặc đúng --> Xóa dấu mở ngoặc cùng cấp --> Thằng còn lại chính là thằng trước dấu mở ngoặc cùng cấp
+            //    ... i - 1     Mở đúng ... Đóng đúng
+            //  cnt trong stack     
             st.pop();
             if (!st.empty()) {
                 res = max(res, cnt - st.top().second);
@@ -24,5 +21,5 @@ int main() {
         }
     }
     cout << res << endl;
-    return 0;
 }
+// Bài này limit đã hạ xuống 1e3
