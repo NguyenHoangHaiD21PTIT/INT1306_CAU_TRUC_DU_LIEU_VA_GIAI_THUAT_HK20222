@@ -1,38 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 using ll = long long;
-
 vector<string>v;
-
 void gen() {
 	queue<string>q;
-	q.push("4");
-	q.push("5");
+	q.push("4"); q.push("5");
 	while (1) {
-		//Lấy đỉnh qe
 		string top = q.front();
 		q.pop();
-		//Tạo xâu đảo ngược
 		string tmp = top;
 		reverse(tmp.begin(), tmp.end());
-		//Xâu mới được tạo thành từ xâu đầu và đảo xâu đó
-		string x = "";
-		x += top + tmp;
+		string x = top + tmp;
 		if (x != "45" && x != "54") v.push_back(x);
 		if (v.size() > 10000) break;
-		q.push(top + "4");
-		q.push(top + "5");
+		q.push(top + "4"); q.push(top + "5");
 	}
 }
-
 int main(){
 	gen();
-	int t;
-	cin >> t;
+	int t; cin >> t;
 	while (t--) {
-		int n;
-		cin >> n;
+		int n; cin >> n;
 		for (int i = 0; i < n; i++) cout << v[i] << " ";
 		cout << endl;
 	}
