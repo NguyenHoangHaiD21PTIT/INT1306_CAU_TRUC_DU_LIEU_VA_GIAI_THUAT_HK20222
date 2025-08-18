@@ -2,54 +2,50 @@
 using namespace std;
 
 typedef long long ll;
-const ll MAX_N = 1e6 + 5;
-const ll INF = 1e18;
+const ll MAXN = 1e6 + 5;
 
 ll n;
-pair<ll, ll> pos[MAX_N], sortedX[MAX_N], sortedY[MAX_N];
+pair<ll, ll> p[MAXN], sx[MAXN], sy[MAXN];
 
-bool cmp(pair<ll, ll> a, pair<ll, ll> b) {
+bool cmpY(pair<ll,ll> a, pair<ll,ll> b) {
     return a.second < b.second;
 }
 
-ll cal(ll medIdx) { //chi so cua trung vi
-    ll medX = sortedX[medIdx].first;//toa do cua trung vi sau khi sap xep cac diem theo x
-    ll medY = sortedY[medIdx].second;//toa do cua trung vi sau khi sap xep cac diem theo y
-    ll eX = 0, eY = 0;//tong nang luong di chuyen theo 2 cach: ve trung vi cua x, cua y
-    ll curX = medX, curY = medY;
-    //Co dinh toa do cac diem ve X, di chuyen gan ve midY nhat co the
-    //Nen phuong an 1: medX giu nguyen, curY ban dau la trung vi roi dich xa dan them 1
-    for (ll i = medIdx; i <= n; i++) {
-        eY += abs(sortedY[i].first - medX) + abs(sortedY[i].second - curY);
-        curY++;
+ll calc(ll mid) {
+    ll mx = sx[mid].first, my = sy[mid].second; //Sắp xếp toạ độ x, y tăng dần để lấy trung vị
+    ll ex = 0, ey = 0;
+    ll cx = mx, cy = my;// Giữ hàng dọc: Fix cứng x = mx, giữ hàng ngang: y = my
+    // Tinh theo Y (Cố định x): Xếp dọc
+    // Xếp tất cả trên đường thẳng song song với trục tung là x = x_mid, xếp thằng giữa nhất vào y = y_mid, thằng lớn hơn thì đi lên 1 đơn vị trên trục tung, cứ thế, ...
+    for (ll i = mid; i <= n; i++) {
+        ey += abs(sy[i].first - mx) + abs(sy[i].second - cy);
+        cy++;
     }
-    curY = medY - 1;
-    for (ll i = medIdx - 1; i >= 1; i--) {
-        eY += abs(sortedY[i].first - medX) + abs(sortedY[i].second - curY);
-        curY--;
+    cy = my - 1;
+    for (ll i = mid - 1; i >= 1; i--) {
+        ey += abs(sy[i].first - mx) + abs(sy[i].second - cy);
+        cy--;
     }
-    
-    for (ll i = medIdx; i <= n; i++) {
-        eX += abs(curX - sortedX[i].first) + abs(medY - sortedX[i].second);
-        curX++;
+    // Tinh theo X
+    for (ll i = mid; i <= n; i++) {
+        ex += abs(cx - sx[i].first) + abs(my - sx[i].second);
+        cx++;
     }
-    curX = medX - 1;
-    for (ll i = medIdx - 1; i >= 1; i--) {
-        eX += abs(curX - sortedX[i].first) + abs(medY - sortedX[i].second);
-        curX--;
+    cx = mx - 1;
+    for (ll i = mid - 1; i >= 1; i--) {
+        ex += abs(cx - sx[i].first) + abs(my - sx[i].second);
+        cx--;
     }
-    
-    return min(eX, eY);
+    return min(ex, ey);
 }
 
 int main() {
     cin >> n;
     for (ll i = 1; i <= n; i++) {
-        cin >> pos[i].first >> pos[i].second;
-        sortedX[i] = sortedY[i] = pos[i];
+        cin >> p[i].first >> p[i].second;
+        sx[i] = sy[i] = p[i];
     }
-    sort(sortedX + 1, sortedX + n + 1);
-    sort(sortedY + 1, sortedY + n + 1, cmp);
-    cout << cal((n + 1) / 2);
+    sort(sx + 1, sx + n + 1);
+    sort(sy + 1, sy + n + 1, cmpY);
+    cout << calc((n + 1) / 2);
 }
-
