@@ -25,7 +25,7 @@ int main(){
 	// Chặt nhị phân theo chỉ số đường chéo
     while(l <= r){
         ll mid = (l + r) / 2; //Giả định số đường chéo đang xét, đường chéo thứ i thì có i phần tử
-		ll start = val(mid, 1), end = start + mid - 1; //Hàng thứ
+		ll start = val(mid, 1), end = start + mid - 1; //Điểm bắt đầu, kết thúc đường chéo
 		if(start <= z and z <= end){
 			ll j = 1 + (z - start);
 			ll i = mid - j + 1; //dài mid
