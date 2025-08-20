@@ -52,3 +52,5 @@ int main() {
     long long res = (M.a[0][0] - 1 + MOD) % MOD; //Trừ trường hợp không chọn phần tử nào
     cout << res << "\n";
 }
+//Submit tại: https://oj.vnoi.info/problem/olp_ct22_restore
+//Bài này test case PTIT siết hơn với case k bé. base.a[i][(i + 1) % k] và base.a[i][(i + 2) % k] gán = 3 ở VNOI thì AC, sang PTIT WA
