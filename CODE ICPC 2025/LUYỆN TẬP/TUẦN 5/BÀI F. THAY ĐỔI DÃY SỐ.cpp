@@ -59,3 +59,4 @@ int main() {
         cout << (bsum + best) << '\n';
     }
 }
+// Cái túi biến thể. Với khối lượng là chi phí biến đổi, giá trị chính là phần thưởng nhận được. Tuy nhiên, dùng dp 2D chắc chắn vỡ mảng
