@@ -28,8 +28,8 @@ int main() {
         auto [cur, u] = pq.top(); pq.pop(); // lấy đỉnh có thời gian nhỏ nhất
         if(cur > d[u]) continue; // nếu đã cập nhật tốt hơn, bỏ qua
         // Duyệt tất cả các cạnh từ u
+        // Từ thành phố X đến được các thành phố Y1, Y2, ... Yn. Thế thì chọn thành phố nào từ X mà đến được sớm hơn mà đi tiếp (Kể cả chờ tàu do sai mốc)
         for(auto &e: g[u]){
-            // Tính thời điểm tàu tiếp theo ≥ cur
             ll dep; 
             if(cur % e.k == 0) dep = cur;       // vừa đúng mốc tàu, đi ngay
             else dep = (cur / e.k + 1) * e.k;   // chờ tàu tiếp theo
@@ -46,3 +46,4 @@ int main() {
     }
     cout << (d[f] == INF ? -1: d[f]);
 }
+
