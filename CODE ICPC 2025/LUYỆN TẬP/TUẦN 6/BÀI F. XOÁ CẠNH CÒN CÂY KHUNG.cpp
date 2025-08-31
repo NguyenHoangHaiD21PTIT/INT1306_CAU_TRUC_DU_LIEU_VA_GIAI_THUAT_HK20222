@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int p[100005], sz[100005];
+int p[200005], sz[200005];
 
 int f(int x){
     if(x == p[x]) return x;
@@ -61,3 +61,4 @@ Cách tiếp cận ngược:
 - Duyệt từng cạnh dương, nếu hai đầu nếu chưa cùng thành phần liên thông, tức là bắt buộc phải giữ cạnh đó.
 - Khi biết được các cạnh dương bắt buộc giữ, đáp số là tổng trọng số tất cả các cạnh dương ban đầu trừ đi tổng trọng số các cạnh buộc phải giữ.
 */
+
