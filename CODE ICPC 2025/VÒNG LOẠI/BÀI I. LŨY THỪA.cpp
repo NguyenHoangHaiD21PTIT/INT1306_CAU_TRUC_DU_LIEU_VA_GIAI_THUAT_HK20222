@@ -1,89 +1,70 @@
-#include<bits/stdc++.h>
-
-#define ll long long
+#include <bits/stdc++.h>
 using namespace std;
-
-map<ll,ll> mp;
-ll res_gcd = 0;
-int mxn = 10000005;
-vector<ll> a;
-vector<bool> b(mxn, true);
-
-void seive(){
-    b[0] = b[1] = false;
-    for(ll i = 2; i < sqrt(mxn); i++){
-        if(b[i] == true){
-            for(ll j = i*i; j < mxn; j+= i) b[j] = false;
-        }
-    }
-}
-
-void ptich(ll x){
-    ll temp = 0;
-    ll gioihan;
-    if(x > 1e15) gioihan = cbrt(x);
-    else gioihan = sqrt(x);
-    for(int i = 2; i <= gioihan; i++){
-        while(x%i == 0){
-            temp++;
-            x /= i;
-        }
-        if(temp){
-            mp[i] = temp;
-            res_gcd = __gcd(res_gcd, temp);
-            temp = 0;
-        }
-        
-    }
-    if(x != 1){
-        mp[x]++;
-        res_gcd = __gcd(res_gcd, mp[x]);
-    } 
-}
-
-ll tinh1(ll ans){
+using ll = long long;
+ 
+// Trả về true nếu a^e <= lim
+bool leq(ll a, int e, ll lim) {
     ll res = 1;
-    for(auto i : mp){
-        res *= (i.second / ans + 1);
+    for (int i = 0; i < e; i++) {
+        if (res > lim / a) return false;
+        res *= a;
     }
-    return res;
+    return res <= lim;
 }
-
-ll tinh2(ll ans){
+ 
+// Trả về true nếu a^e == t
+bool eq(ll a, int e, ll t) {
     ll res = 1;
-    for(auto i : mp){
-        res *= pow(i.first, i.second/ans);
+    for (int i = 0; i < e; i++) {
+        if (res > t / a) return false;
+        res *= a;
     }
-    return res;
+    return res == t;
 }
-
-int main(){
-    seive();
-    ll x;
-    cin >> x;
-    if(x > 1e15){
-        ll temp = sqrt(x);
-        if(temp < mxn){
-        if(b[temp] == true) cout << temp << endl;
-        return 0;}
+ 
+//Tìm y lớn nhất sao cho y^k <= x, với x và k cho trước
+ll kth(ll x, int k) {
+    if (k == 1) return x;
+    ll lo = 1, hi = x, ans = 0;
+    while (lo <= hi) {
+        ll mid = (lo + hi) / 2;
+        if (leq(mid, k, x)) {
+            ans = mid;
+            lo = mid + 1;
+        } else hi = mid - 1;
     }
-    if(x == 1){
-        cout << 1 << endl;
-        return 0;
+    return ans;
+}
+ 
+// Đếm số ước của n
+ll divs(ll n) {
+    ll ans = 1;
+    for (ll i = 2; i * i <= n && i <= 10000000LL; i++) {
+        if (n % i == 0) {
+            ll e = 0;
+            while (n % i == 0) n /= i, e++;
+            ans *= (e + 1);
+        }
     }
-    ptich(x);
-    
-   
-    for(ll i = 1; i <= res_gcd; i++){
-        if(res_gcd % i == 0){
-            ll ans = res_gcd/i;
-            ll temp1 = tinh1(ans);
-            if(ans == temp1){
-                cout << tinh2(ans);
+    if (n > 1) ans *= 2;
+    return ans;
+}
+ 
+int main() {
+    ll x; cin >> x;
+    for (int k = 61; k >= 1; k--) {
+        if (k == 1) {
+            if (x == 1) {
+                cout << 1 << "\n";
                 return 0;
             }
+            continue;
+        }
+        ll n = kth(x, k);
+        if (n && eq(n, k, x) && divs(n) == k) {
+            cout << n << "\n";
+            return 0;
         }
     }
-    cout << -1 << endl;
+    cout << -1 << "\n";
 }
-// 45/46 (WA)
