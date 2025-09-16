@@ -35,6 +35,7 @@ int main() {
             else ch = {0, 1}; // '?'
             for (int b : ch) {
                 int ns = ((st << 1) & (stmax - 1)) | b;
+                //st << 1: dịch bitmask sang trái 1 bit để nhường chỗ cho ký tự hiện tại, giữ K - 1 bit cuối, sau đó thêm ký tự hiện tại vào vị trí thấp nhất.
                 if (i >= k && pal((st << 1) | b, k)) continue;
                 dp[i][ns] = (dp[i][ns] + dp[i - 1][st]) % MOD;
             }
