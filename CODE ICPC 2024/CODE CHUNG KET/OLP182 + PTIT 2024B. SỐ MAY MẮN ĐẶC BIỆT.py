@@ -8,7 +8,8 @@ for _ in range(int(input())):
             if (a + b >= 1) and (a + b <= 200):
                 s = "8" * a + "6" * b
                 if (int(s) % x == 0):
-                    minRes = min(minRes, int(s))
+                    res = min(res, int(s))
                     check = 1
-    if check==0: print(-1)
-    else: print(minRes)
+    if check == 0: print(-1)
+    else: print(res)
+//Link submit: https://oj.vnoi.info/problem/luckynum
