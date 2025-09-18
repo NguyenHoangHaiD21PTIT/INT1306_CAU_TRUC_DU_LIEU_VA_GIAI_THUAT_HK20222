@@ -46,3 +46,4 @@ int main() {
     }
     return 0;
 }
+//Link submit: https://oj.vnoi.info/problem/backtrack_e
