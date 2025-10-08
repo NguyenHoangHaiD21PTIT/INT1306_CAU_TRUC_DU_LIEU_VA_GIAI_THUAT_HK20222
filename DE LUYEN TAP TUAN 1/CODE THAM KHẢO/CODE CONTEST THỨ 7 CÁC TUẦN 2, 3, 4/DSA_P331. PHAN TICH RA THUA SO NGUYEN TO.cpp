@@ -2,41 +2,36 @@
 using namespace std;
 
 #define ll long long
-vector<ll> primes;
-
-void sieve() {
-    const int MAX = 1e7;
-    vector<bool> isPrime(MAX + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (ll i = 2; i * i <= MAX; i++) {
-        if (isPrime[i]) {
-            for (ll j = i * i; j <= MAX; j += i) isPrime[j] = false;
+vector<ll> pr;
+void sv() {
+    const int N = 1e7;
+    vector<bool> isp(N + 1, true);
+    isp[0] = isp[1] = false;
+    for (ll i = 2; i * i <= N; i++) {
+        if (isp[i]) {
+            for (ll j = i * i; j <= N; j += i) isp[j] = false;
         }
     }
-    for (ll i = 2; i <= MAX; i++) {
-        if (isPrime[i]) primes.push_back(i);
+    for (ll i = 2; i <= N; i++){
+        if (isp[i]) pr.push_back(i);
     }
 }
-
 int main() {
-    sieve();
-    int t;
-    cin >> t;
+    sv(); int t; cin >> t;
     while (t--) {
-        ll n;
-        cin >> n;
-        for (ll p : primes) {
+        ll n; cin >> n;
+        for (ll p : pr) {
             if (p * p > n) break;
             if (n % p == 0) {
-                int count = 0;
+                int c = 0;
                 while (n % p == 0) {
-                    count++;
+                    c++;
                     n /= p;
                 }
-                cout << p << " " << count << endl;
+                cout << p << " " << c << "\n";
             }
         }
-        if (n > 1) cout << n << " " << 1 << endl; 
-        cout<<endl;
+        if (n > 1) cout << n << " 1\n";
+        cout << "\n";
     }
 }
