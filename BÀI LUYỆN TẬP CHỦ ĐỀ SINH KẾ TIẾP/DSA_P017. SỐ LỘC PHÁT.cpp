@@ -19,10 +19,11 @@ int main(){
 		cin >> n; ok = 1;
 		for(int i = 0; i < n; i++) a[i] = 6;
 		cout << pow(2, n) << endl;
-		while(ok==1){
+		while(ok){
 			for(int i = 0; i < n; i++) cout << a[i];
 			cout << " "; sinh();
 		}
 		cout << endl;
 	} 
 }
+
