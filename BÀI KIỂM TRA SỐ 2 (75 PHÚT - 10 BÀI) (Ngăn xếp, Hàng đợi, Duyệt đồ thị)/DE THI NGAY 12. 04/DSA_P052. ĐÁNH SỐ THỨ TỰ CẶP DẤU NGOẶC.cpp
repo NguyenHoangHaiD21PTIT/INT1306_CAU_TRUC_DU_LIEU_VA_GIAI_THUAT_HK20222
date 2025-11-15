@@ -8,11 +8,11 @@ int main(){
 		getline(cin, s);
 		int cnt = 1;
 		stack <int> st;
-		for(int i = 0;i<s.size();i++){
-			if(s[i] == '('){
+		for(char x: s){
+			if(x == '('){
 				st.push(cnt);
 				cout << cnt++ << " ";
-			} else if (s[i] == ')'){
+			} else if (x == ')'){
 				cout << st.top() << " ";
 				st.pop();
 			}
@@ -20,3 +20,4 @@ int main(){
 		cout << endl;
 	}
 }
+
