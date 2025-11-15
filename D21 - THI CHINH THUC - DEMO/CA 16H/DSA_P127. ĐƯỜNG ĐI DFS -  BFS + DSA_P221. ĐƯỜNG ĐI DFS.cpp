@@ -1,67 +1,68 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> ke[1005];
-int visited[1005], truoc[1005];
+vector<int> adj[1005];
+int vis[1005], par[1005];
 
-void DFS(int x) {
-    visited[x] = 1;
-    for(int i: ke[x]) {
-        if(!visited[i]) {
-            truoc[i] = x;
-            DFS(i);
+void DFS(int u) {
+    vis[u] = 1;
+    for(int v: adj[u]) {
+        if(!vis[v]) {
+            par[v] = u;
+            DFS(v);
         }
     }
 }
 
-void BFS(int x) {
+void BFS(int s) {
     queue<int> q;
-    q.push(x);
-    visited[x] = 1;
+    q.push(s);
+    vis[s] = 1;
     while(!q.empty()) {
-        int p = q.front(); q.pop();
-        for(int i: ke[p]) {
-            if(!visited[i]) {
-                visited[i] = 1;
-                truoc[i] = p;
-                q.push(i);
+        int u = q.front(); q.pop();
+        for(int v: adj[u]) {
+            if(!vis[v]) {
+                vis[v] = 1;
+                par[v] = u;
+                q.push(v);
             }
         }
     }
 }
 
-void in_path(int start, int end, bool useDFS) {
-    memset(visited, 0, sizeof(visited));
-    memset(truoc, 0, sizeof(truoc));
-    if(useDFS) DFS(start);
-    else BFS(start);
-    if(!visited[end]) {
+void pr(int s, int t, bool useDFS) {
+    memset(vis, 0, sizeof(vis));
+    memset(par, 0, sizeof(par));
+    if(useDFS) DFS(s);
+    else BFS(s);
+    if(!vis[t]) {
         cout << "-1\n";
         return;
     }
     vector<int> path;
-    int y = end;
-    while(y != start) {
-        path.push_back(y);
-        y = truoc[y];
+    int cur = t;
+    while(cur != s) {
+        path.push_back(cur);
+        cur = par[cur];
     }
-    path.push_back(start);
+    path.push_back(s);
     reverse(path.begin(), path.end());
     for(int v: path) cout << v << " ";
-    cout << endl;
+    cout << "\n"; 
 }
 
 int main() {
-    int dinh, canh;
-    cin >> dinh >> canh;
-    while(canh--) {
+    int V, E;
+    cin >> V >> E;
+    while(E--) {
         int u, v;
         cin >> u >> v;
-        ke[u].push_back(v);
-        ke[v].push_back(u);
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-    for(int i = 2; i <= dinh; i++) {
-        in_path(1, i, true);  // DFS
-        in_path(i, 1, false); // BFS
+    for(int i = 2; i <= V; i++) {
+        pr(1, i, true);  
+        pr(i, 1, false);
     }
+    return 0;
 }
