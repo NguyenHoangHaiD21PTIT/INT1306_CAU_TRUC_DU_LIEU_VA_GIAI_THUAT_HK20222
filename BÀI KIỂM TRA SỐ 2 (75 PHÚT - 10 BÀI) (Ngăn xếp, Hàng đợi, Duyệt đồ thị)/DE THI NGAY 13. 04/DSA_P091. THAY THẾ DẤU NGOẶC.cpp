@@ -6,7 +6,6 @@ int main(){
         string s; cin >> s;
         stack<int> st;     //Stack lưu vị trí các dấu mở ngoặc
         int a[1005] = {0}; 
-        for (int i = 0; i < s.size(); i++) a[i] = 0;
         for (int i = 0; i < s.size(); i++){
             if (s[i] == '(') st.push(i);
             else if (s[i] == ')') {
@@ -29,3 +28,4 @@ int main(){
         cout << endl;
     }
 }
+
