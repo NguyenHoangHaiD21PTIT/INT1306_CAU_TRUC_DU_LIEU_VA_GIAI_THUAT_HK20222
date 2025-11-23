@@ -14,6 +14,7 @@ int main(){
 				if(a[j] <= a[i]) f[i] = max(f[i], f[j] + 1);
 			}
 		}
-		cout << n - *max_element(f, f + n);
+		cout << n - *max_element(f, f + n) << endl;
 	}
 }
+
