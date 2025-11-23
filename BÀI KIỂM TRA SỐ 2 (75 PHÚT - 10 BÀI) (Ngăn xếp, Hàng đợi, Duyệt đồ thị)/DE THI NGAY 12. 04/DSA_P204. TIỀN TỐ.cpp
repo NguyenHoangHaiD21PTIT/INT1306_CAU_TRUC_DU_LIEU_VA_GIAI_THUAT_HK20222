@@ -1,37 +1,35 @@
 #include<bits/stdc++.h>
 using namespace std;
 using ll = long long;
-
-ll calc(ll x, ll y, string s){
-	if(s == "+") return x + y;
-	else if (s == "-") return x - y;
-	else if (s == "*") return x * y;
-	else return x  /y;
+bool check(string s) {
+    return s == "+" || s == "-" || s == "*" || s == "/";
 }
 
-int toantu(string s){
-	if(s == "+" ||s == "-" ||s == "*" ||s == "/") return 1;
-	else return 0;
+ll cal(ll op1, ll op2, string op) {
+    if (op == "+") return op1 + op2;
+    if (op == "-") return op1 - op2;
+    if (op == "*") return op1 * op2;
+    if (op == "/") return op1 / op2;
+    return 0; 
 }
 
-int main(){
-	int t; cin >> t;
-	while(t--){
-		int n; cin >> n;
-		vector <string> v;
-		while(n--){
-			string s; cin >> s;
-			v.push_back(s);
+void solve() {
+	int n; cin >> n;
+	vector<string> v(n);
+	for (int i = 0; i < n; ++i) cin >> v[i];
+	stack<ll> st;
+	for (int i = n - 1; i >= 0; --i) {
+		if (!check(v[i])) st.push(stoll(v[i]));
+		else {
+			ll x1 = st.top(); st.pop(); 
+			ll x2 = st.top(); st.pop(); 
+			st.push(cal(x1, x2, v[i]));
 		}
-		stack<ll>st;
-		for(int i = v.size() - 1; i >= 0; i--){
-			if(!toantu(v[i])) st.push(stoll(v[i]));
-			else {
-				ll x1 = st.top(); st.pop();
-				ll x2 = st.top(); st.pop();
-				st.push(calc(x1, x2, v[i]));
-			}
-		}
-		cout << st.top() << endl;
 	}
+	cout << st.top() << "\n";
+}
+
+int main() {
+	int t; cin >> t;
+	while (t--) solve();
 }
