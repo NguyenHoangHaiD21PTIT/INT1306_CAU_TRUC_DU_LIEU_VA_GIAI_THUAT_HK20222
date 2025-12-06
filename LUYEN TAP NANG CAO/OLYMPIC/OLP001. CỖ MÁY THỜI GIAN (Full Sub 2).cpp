@@ -18,11 +18,12 @@ void solve() {
     //Bước 1: Khởi tạo trạng thái đầu
     deque<int> dq; 
     f[s] = a[s]; dq.push_back(s);
-    //Bước 2: Dùng dq để tìm chi phí nhỏ nhất
+    //Bước 2: Dùng dq để tìm chi phí nhỏ nhất. Đầu dq là trái, cuối dq là bên phải
+    //Đảm bảo dq luôn tăng dần
     for (int i = s + 1; i <= t; ++i) {
         while (!dq.empty() && dq.front() < i - k) dq.pop_front();//Xoá các trạng thái không còn khả dụng
         f[i] = f[dq.front()] + a[i];//Cập nhật chi phí nhỏ nhất để đến vị trí i
-        while (!dq.empty() && f[dq.back()] >= f[i]) dq.pop_back();//Cập nhật dq
+        while (!dq.empty() && f[dq.back()] >= f[i]) dq.pop_back();//Đuổi hết những thằng "đắt" hơn f[i] ra khỏi hàng, và vị trí cuối sẽ cho f[i]
         dq.push_back(i);
     }
     cout << f[t] << "\n";
