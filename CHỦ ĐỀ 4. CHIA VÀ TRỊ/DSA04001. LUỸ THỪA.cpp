@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int MOD = 1e9 + 7;
-long long powdu(long long a, long long b){
-    long long res = 1;
+using ll = long long;
+ll pmod(ll a, ll b){
+    ll res = 1;
     while (b){
         if (b % 2 == 1) res = (res * a) % MOD;
         a = (a * a) % MOD;
@@ -11,11 +12,9 @@ long long powdu(long long a, long long b){
     return res;
 }
 int main(){
-    int t;
-    cin >> t;
+    int t; cin >> t;
     while (t--){
-        long long a, b;
-        cin >> a >> b;
-        cout << powdu(a, b) << endl;
+        ll a, b; cin >> a >> b;
+        cout << pmod(a, b) << endl;
     }
 }
