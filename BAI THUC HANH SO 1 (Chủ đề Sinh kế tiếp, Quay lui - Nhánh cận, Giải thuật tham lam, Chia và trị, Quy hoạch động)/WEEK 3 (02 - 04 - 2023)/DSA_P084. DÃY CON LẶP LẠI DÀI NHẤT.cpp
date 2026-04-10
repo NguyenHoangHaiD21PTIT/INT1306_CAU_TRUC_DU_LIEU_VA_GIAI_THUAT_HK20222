@@ -17,4 +17,4 @@ int main(){
 		cout << ans << endl;
 	}
 }
-
+//Thực chất là LCS biến thể: TÌm xâu con chung dài nhất của S và S, nhưng các ký tự tạo thành KHÔNG được trùng vị trí
