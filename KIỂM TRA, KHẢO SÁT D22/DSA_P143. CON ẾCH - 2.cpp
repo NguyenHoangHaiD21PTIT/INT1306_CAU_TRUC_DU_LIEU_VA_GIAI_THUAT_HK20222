@@ -8,10 +8,8 @@ int main(){
     dp[1] = 0; // Đứng ở điểm xuất phát thì đương nhiên không tốn năng lượng
     for (int i = 2; i <= n; i ++){
         dp[i] = 1e9;
-        for (int j = 1; j <= k; j++){
-            if (i - j >= 1) dp[i] = min(dp[i], dp[i - j] + abs(h[i] - h[i - j]));
-        }
+        for (int j = 1; j <= k && i - j >= 1; j++) dp[i] = min(dp[i], dp[i - j] + abs(h[i] - h[i - j]));
     }
     cout << dp[n];
 }
-//Nguồn: https://oj.vnoi.info/problem/atcoder_dp_b
+
