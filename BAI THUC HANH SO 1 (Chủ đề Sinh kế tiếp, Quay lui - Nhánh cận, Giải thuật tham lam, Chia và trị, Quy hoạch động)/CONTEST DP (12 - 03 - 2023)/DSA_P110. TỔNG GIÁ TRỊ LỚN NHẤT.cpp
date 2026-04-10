@@ -2,7 +2,6 @@
 using namespace std;
 int dp[6000][6000] = {}; //dp[i][j] là GTLN của cái túi trọng lượng j với i đồ vật
 int main(){
-	memset(dp, 0, sizeof(dp));
 	int n, s; //n: số lượng đồ vật, s: trọng lượng tối đa của túi
 	cin >> n >> s;
 	int w[6000], v[6000];//w: khoi luong, v: gia tri
@@ -13,5 +12,5 @@ int main(){
 			if(j >= w[i]) dp[i][j] = max (dp[i][j], dp[i - 1][j - w[i]] + v[i]);
 		}
 	}
-	cout << dp[n][s] << endl;
+	cout << dp[n][s];
 }
