@@ -30,10 +30,10 @@ void BFS(int s) {
     }
 }
 
-void pr(int s, int t, bool useDFS) {
+void pr(int s, int t, bool x) { //x = true: DFS, ngược lại: BFS
     memset(vis, 0, sizeof(vis));
     memset(par, 0, sizeof(par));
-    if(useDFS) DFS(s);
+    if(x) DFS(s);
     else BFS(s);
     if(!vis[t]) {
         cout << "-1\n";
@@ -64,5 +64,4 @@ int main() {
         pr(1, i, true);  
         pr(i, 1, false);
     }
-    return 0;
 }
