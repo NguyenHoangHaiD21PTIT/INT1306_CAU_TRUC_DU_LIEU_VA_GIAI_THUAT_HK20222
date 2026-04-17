@@ -1,17 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
-//Hướng giải: Mảng hiệu
 int main(){
-    int n, q;
-    cin>>n>>q;
-    int a[100005] = {};
-    while(q--){
-        int x, y;
-        cin>>x>>y;
+    int n, q, a[100005] = {};
+    cin >> n >> q;
+    while (q--){
+        int x, y; cin >> x >> y;
         a[x]++; a[y + 1]--;
     }
-    for(int i = 1;i<=n;i++) a[i]+=a[i - 1];
-    for(int i = 1;i<=n;i++) cout<<a[i]%2<<" ";
+    for (int i = 1; i <= n; i++) a[i] += a[i - 1];
+    for (int i = 1; i <= n; i++) cout << a[i] % 2 << " ";
 }
 /*
 KIẾN THỨC CẦN NẮM: MẢNG HIỆU.
@@ -28,13 +25,13 @@ d6_moi = a6_moi - a5_moi = (a6 + 2) - (a5 + 2) = a6 - a5 = d6_cu
 d7_moi = a7_moi - a6_moi =  a7 - (a6 + 2) = (a7 - a6) - 2 = d7_cu - 2 
 d8_moi = a8_moi - a7_moi =  a8 - a7 = d8_cu ...
 Như vậy ta thấy rằng: Khi truy vấn tăng từ a3 đến a6 mỗi số thêm 2 đơn vị thì ta chỉ cần thay đổi ở d3 thành d3 + 2, d7 thành d7 - 2 
-Tổng quát, với mỗi truy vấn tăng từ x đến y mỗi số thêm v đơn vị thì ta chỉ cần thay đổi ở d[x] thành dx + v, d[y+1] thành d[y + 1] - v.
+Tổng quát, với mỗi truy vấn tăng từ x đến y mỗi số thêm v đơn vị thì ta chỉ cần thay đổi ở d[x] thành d[x] + v, d[y+1] thành d[y + 1] - v.
 Chứ không cần phải thay đổi toàn bộ các phần tử từ a[x] đến a[y] --> Giảm độ phức tạp từ O(n * q) xuống O(n + q).
 3. Ta thấy: 
 a0 = d0
 a1 = d0 + d1 = a0 + (a1 - a0) = a0 + d1
 a2 = d0 + d1 + d2 = a0 + (a1 - a0) + (a2 - a1) = a1 + d2
-a3 = d0 + d1 + d2 + d3 = a0 + (a1 - a0) + (a2 - a1) + (a3 - a2) = a3
+a3 = d0 + d1 + d2 + d3 = a0 + (a1 - a0) + (a2 - a1) + (a3 - a2) = a2 + d3
 ...
 Nôm na hiểu là: Từ mảng hiệu, muốn khôi phục mảng gốc thì ta lấy tổng cộng dồn mảng hiệu đến vị trí đó
 
