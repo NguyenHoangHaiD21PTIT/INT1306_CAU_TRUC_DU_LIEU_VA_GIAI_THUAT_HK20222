@@ -4,8 +4,7 @@ vector<int> par(100008), sze(100008, 1);
 
 int find(int x) {
     if (x == par[x]) return x;
-    par[x] = find(par[x]);
-    return par[x];
+    return par[x] = find(par[x]);
 }
 
 bool Union(int x, int y) {
