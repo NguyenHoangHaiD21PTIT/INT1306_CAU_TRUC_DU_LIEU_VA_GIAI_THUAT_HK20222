@@ -10,34 +10,33 @@ struct node {
 };
 
 void pre(node* t) { 
-    if(t) { 
-        cout << t -> v << " "; 
-        pre(t -> l); 
-        pre(t -> r); 
-    } 
+    if (t == NULL) return;
+	cout << t -> v << " ";
+	pre(t -> l);
+	pre(t -> r);
 }
 
-
 void in(node* t) { 
-    if(t) { 
-        in(t -> l); 
-        cout << t -> v << " "; 
-        in(t -> r); 
-    } 
+    if (t == NULL) return;
+    in (t -> l);
+    cout << t -> v << " "; 
+    in (t -> r);
 }
 
 void post(node* t) { 
-    if(t) { 
-        post(t -> l); 
-        post(t -> r); 
-        cout << t -> v << " "; 
-    } 
+    if (t == NULL) return;
+    post(t -> l); 
+    post(t -> r); 
+    cout << t -> v << " "; 
 }
 
-void add(node*& t, int x) {
-    if(!t) t = new node(x);
-    else if(x < t->v) add(t -> l, x);
-    else add(t -> r, x);
+node *add (node *root, int u){
+    if (root == NULL) root = new node(u);
+	else {
+		if (u < root -> v) root->l = add(root->l, u);
+		else root -> r = add(root->r, u);
+	}
+	return root;
 }
 
 //Tìm node trái nhất có thể (Trả về con trỏ đến node đó)
@@ -68,7 +67,7 @@ int main() {
     while (cin >> t) {
         if (t == 1) { 
             cin >> x; 
-            add(root, x);
+            root = add(root, x);
         } else if (t == 2) { 
             cin >> x; 
             root = del(root, x); 
