@@ -1,22 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct N {
+struct node {
     int d;
-    N *l, *r;
-    N(int x) { d = x; l = r = NULL; }
+    node* l, *r;
+    node(int x) {
+        d = x;
+        l = r = nullptr;
+    }
 };
 
-N* add(N* rt, int u) {
-    if (!rt) return new N(u);
-    if (u < rt->d) rt->l = add(rt->l, u);
-    else rt->r = add(rt->r, u);
-    return rt;
+node *ins(node *root, int u) {
+	if (root == NULL) root = new node(u);
+	else {
+		if (u < root->d) root->l = ins(root->l, u);
+		else root->r = ins(root->r, u);
+	}
+	return root;
 }
 
-void sp(N* rt) {
+void sp(node* rt) {
     if (!rt) return;
-    queue<N*> q;
+    queue<node *> q;
     vector<vector<int>> res;
     q.push(rt);
     while (!q.empty()) {
@@ -24,7 +29,7 @@ void sp(N* rt) {
         int c = q.size(); //Số node tầng đang xét
         vector<int> v; //Mảng lưu các node tầng đang xét
         while (c--) {
-            N* t = q.front(); q.pop();
+            node * t = q.front(); q.pop();
             v.push_back(t->d);
             if (t->l) q.push(t->l);
             if (t->r) q.push(t->r);
@@ -41,11 +46,11 @@ int main() {
     int t, n, x;
     cin >> t;
     while (t--) {
-        N* rt = NULL;
+        node* rt = NULL;
         cin >> n;
         while (n--) {
             cin >> x;
-            rt = add(rt, x);
+            rt = ins(rt, x);
         }
         sp(rt);
         cout << "\n";
