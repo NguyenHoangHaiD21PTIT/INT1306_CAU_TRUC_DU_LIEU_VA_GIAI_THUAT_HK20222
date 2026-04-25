@@ -1,46 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> g[10005], gr[10005]; // gr = graph reversed
-int vis[10005];
-stack<int> st;
+vector <int> g[100005], gr[100005]; //g: Đồ thị đúng, gr: Đồ thị đảo
+int vis[100005];
+stack <int> st;
 
-void dfs1(int u) { //Tạo thứ tự sắp xếp Topo trong Stack
+void DFS1 (int u){ //Tạo thứ tự sắp xếp topo trong stack
     vis[u] = 1;
-    for(int v : g[u]){
-        if(!vis[v]) dfs1(v);
-	}
+    for (int v: g[u]){
+        if (!vis[v]) DFS1(v);
+    }
     st.push(u);
 }
 
-void dfs2(int u) { //DFS trên đồ thị đảo
+void DFS2 (int u){
     vis[u] = 1;
-    for(int v : gr[u]){
-        if(!vis[v]) dfs2(v);
-	}
+    for (int v: gr[u]){
+        if (!vis[v]) DFS2(v);
+    }
 }
 
-int main() {
-    int n, m;
+int main(){
+    int n, m; 
     cin >> n >> m;
-    while(m--) {
-        int u, v;
-        cin >> u >> v;
-        g[u].push_back(v);
-        gr[v].push_back(u); 
+    while (m--){
+        int x, y;
+        cin >> x >> y;
+        g[x].push_back(y);
+        gr[y].push_back(x);
     }
-    memset(vis, 0, sizeof(vis));
-    for(int i = 1; i <= n; i++){
-        if(!vis[i]) dfs1(i);
-	}
-    memset(vis, 0, sizeof(vis));
-    int scc = 0;
-    while(!st.empty()) {
+    for (int i = 1; i <= n; i++){
+        if (!vis[i]) DFS1(i);
+    }
+    memset (vis, 0, sizeof(vis));
+    int cnt = 0;
+    while (!st.empty()){
         int u = st.top(); st.pop();
-        if(!vis[u]) {
-            scc++;
-            dfs2(u);
+        if (!vis[u]){
+            cnt++;
+            DFS2(u);
         }
     }
-    cout << scc << endl;
+    cout << cnt;
 }
