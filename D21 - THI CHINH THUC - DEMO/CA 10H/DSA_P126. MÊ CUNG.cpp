@@ -1,46 +1,43 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int par[100005], sze[100005];
+int p[100005], s[100005];
 
-int find(int x){
-	if(x == par[x]) return x;
-	return par[x] = find(par[x]);
+int find (int x){
+    if (x == p[x]) return x;
+    return p[x] = find(p[x]);
 }
 
-bool Union(int x, int y){
-	x = find(x);
-	y = find(y);
-	if(x == y) return false;
-	if(sze[x] < sze[y]) swap(x,y);
-	par[y] = x;
-	sze[x] += sze[y];
-	return true;	
+bool join (int x, int y){
+    x = find(x); y = find(y);
+    if (x == y) return false;
+    if (s[x] < s[y]) swap(x, y);
+    p[y] = x; s[x] += s[y];
+    return true;
 }
 
 int main(){
-	int t; cin >> t;
-	while(t--){
-		int dinh, canh;
-		cin >> dinh >> canh;
-		for(int i = 1;i <= dinh;i++){
-			par[i] = i;
-			sze[i] = 1;
-		}
-		vector<pair<int, int>>v;
-		while(canh--){
-			int x, y;
-			cin >> x >> y;
-			v.push_back({x, y});
-		}
-		int check = 0; 
-		for(auto i: v){
-			if(!Union(i.first, i.second)){
-				check = 1;
-				break;
-			}
-		}
-		if(check) cout << "YES" << endl;
-		else cout << "NO" << endl;
-	}
+    int t; cin >> t;
+    while (t--){
+        int n, m; 
+        cin >> n >> m;
+        for (int i = 1; i <= n; i++){
+            p[i] = i;
+            s[i] = 1;
+        }
+        vector <pair <int, int>>e;
+        while (m--){
+            int x, y;
+            cin >> x >> y;
+            e.push_back ({x, y});
+        }
+        string check = "NO";
+        for(auto x: e){
+            if (!join (x.first, x.second)){
+                check = "YES";
+                break;
+            }
+        }
+        cout << check << endl;
+    }
 }
