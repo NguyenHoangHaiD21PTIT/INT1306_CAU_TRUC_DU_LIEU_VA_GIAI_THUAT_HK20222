@@ -6,12 +6,12 @@ bool check (string s){
     return s == "+" || s == "-" || s == "*" || s == "/";
 }
 
-ll cal (ll op1, ll op2, string op){
-    if (op == "+") return op1 + op2;
-    if (op == "-") return op1 - op2;
-    if (op == "*") return op1 * op2;
-    if (op == "/") return op1 / op2;
-    return 0;
+ll cal(ll x, ll y, string op) {
+    if (op == "+") return x + y;
+    if (op == "-") return x - y;
+    if (op == "*") return x * y;
+    if (op == "/") return x / y;
+    return 0; 
 }
 
 void sol(){
