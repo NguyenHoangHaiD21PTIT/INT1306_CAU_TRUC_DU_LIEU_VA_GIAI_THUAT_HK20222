@@ -3,10 +3,9 @@ using namespace std;
 int main(){
     int n, q;
     cin >> n >> q;
-    int a[n];
-    for(int i = 0;i<n;i++) cin>>a[i];
+    int a[n], r[n];
+    for (int i = 0; i < n; i++) cin >> a[i];
     stack<int>st;
-    int r[n];
     //r[i]: Phần tử đầu tiên bên phải a[i] lớn hơn a[i]
     for(int i = n - 1;i >= 0;i--){
         while(!st.empty() && a[i] >= a[st.top()]) st.pop();
@@ -15,22 +14,13 @@ int main(){
         st.push(i);
     }
     while(q--){
-        int index, buoc = 0;
-        cin >> index;
-        index--;
-        while(r[index]!=-1){
-            buoc++;
-            index = r[index];
+        int i, cnt = 0;
+        cin >> i;
+        i--;
+        while(r[i]!=-1){
+            cnt++;
+            i = r[i];
         }
-        cout << buoc << endl;
+        cout << cnt << endl;
     }
 }
-/*
-5 5
-1 3 4 2 5
-1
-2
-3
-4
-5
-*/
