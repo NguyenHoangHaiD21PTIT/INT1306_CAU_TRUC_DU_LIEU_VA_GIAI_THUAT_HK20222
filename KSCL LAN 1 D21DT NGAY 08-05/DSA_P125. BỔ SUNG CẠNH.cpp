@@ -1,39 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int par[100005], s[100005];
+int p[100005], s[100005];
 
-int find (int x){
-    if (x == par[x]) return x;
-    return par[x] = find(par[x]);
+int find(int x){
+    if (x == p[x]) return x;
+    return p[x] = find(p[x]);
 }
 
-bool join (int x, int y){
+void join(int x, int y){
     x = find(x); y = find(y);
-    if (x == y) return false;
+    if (x == y) return;
     if (s[x] < s[y]) swap(x, y);
-    par[y] = x;
-    s[x] += s[y];
-    return true;
+    p[y] = x; s[x] += s[y];
+    return;
 }
 
 int main(){
     int n, m; 
     cin >> n >> m;
-    for (int i = 1; i <= n; i++){
-        par[i] = i;
-        s[i] = 1;
-    }
+    for (int i = 1; i <= n; i++) p[i] = i, s[i] = 1;
     while (m--){
         int x, y; cin >> x >> y;
         join(x, y);
     }
-    int ans = 0, P1 = find(1);
-    for (int i = 2; i <= n; i++){
-        int PI = find(i);
-        if (PI != P1) ans = max (ans, s[PI]);
+    int ans = 0;
+    for (int i = 2; i <= n; i++){;
+        if (find(i) != find(1)) ans = max (ans, s[find(i)]);
     }
-    cout << ans + s[P1];
+    cout << ans + s[find(1)];
 }
 /*Idea: Nếu đồ thị liên thông thì số đỉnh tối đa đánh được là toàn bộ số đỉnh
 Ngược lại: Ta sẽ đánh dấu toàn bộ số đỉnh thuộc thành phần liên thông mà 1 thuộc về
