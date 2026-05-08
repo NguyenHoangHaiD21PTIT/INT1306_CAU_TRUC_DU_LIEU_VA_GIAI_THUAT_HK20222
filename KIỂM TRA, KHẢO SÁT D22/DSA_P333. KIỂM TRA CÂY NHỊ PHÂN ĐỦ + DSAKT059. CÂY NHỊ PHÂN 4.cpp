@@ -16,7 +16,7 @@ void mr(node *root, int u, int v, char c){ //make root
 }
 
 void ins(node *root, int u, int v, char c){
-	if(root == NULL) return;
+	if(!root) return;
 	if(root -> d == u) mr(root, u, v, c);
 	else {
 		ins(root -> l, u, v, c);
@@ -25,8 +25,8 @@ void ins(node *root, int u, int v, char c){
 }
 
 int check(node *root){
-    if(root -> l == NULL && root -> r == NULL) return 1;
-    if(root -> l != NULL && root -> r != NULL) return check(root -> l) && check(root -> r);
+    if(!root -> l && !root -> r) return 1;
+    if(root -> l && root -> r) return check(root -> l) && check(root -> r);
     else return 0;
 }
 
@@ -39,7 +39,7 @@ int main(){
 		for(int i = 0;i<n;i++){
 			int u, v; char c;
 			cin >> u >> v >> c;
-			if(root == NULL){
+			if(!root){
 				root = new node(u);
 				mr(root, u, v, c);
 			} else ins(root, u, v, c);
