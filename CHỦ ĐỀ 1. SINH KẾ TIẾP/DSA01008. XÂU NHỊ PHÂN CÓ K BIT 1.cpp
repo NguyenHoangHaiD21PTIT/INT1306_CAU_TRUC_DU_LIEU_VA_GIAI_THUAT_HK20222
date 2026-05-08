@@ -25,7 +25,7 @@ int main(){
 		for(int i = 0; i < n; i++) a[i] = 0; 
 		while(ok){
 			if(check()){
-				for(int i = 0; i < n; i++) cout << a[i] << " ";
+				for(int i = 0; i < n; i++) cout << a[i];
 				cout << endl;
 			}
 			sinh();
