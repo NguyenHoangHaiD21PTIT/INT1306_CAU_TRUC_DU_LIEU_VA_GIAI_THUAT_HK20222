@@ -1,31 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> par(200008);
-vector<int> sze(200008, 1);
+int p[200008], s[200008];
 
 int find(int x) {
-    if (x == par[x]) return x;
-    par[x] = find(par[x]);
-    return par[x];
+    if (x == p[x]) return x;
+    return p[x] = find(p[x]);
 }
 
-bool Union(int x, int y) {
-    x = find(x);
-    y = find(y);
-    if (x == y) return false;
-    if (sze[x] < sze[y]) swap(x, y);
-    par[y] = x;
-    sze[x] += sze[y];
-    return true;
+void Union(int x, int y) {
+    x = find(x); y = find(y);
+    if (x == y) return;
+    if (s[x] < s[y]) swap(x, y);
+    p[y] = x; s[x] += s[y];
+    return;
 }
 
 int main() {
     int N, M; cin >> N >> M;
-    for (int i = 1; i <= N; i++) {
-        par[i] = i;
-        sze[i] = 1;
-    }
+    for (int i = 1; i <= N; i++) {p[i] = i; s[i] = 1;}
     while (M--){
         int x, y; cin >> x >> y;
         Union (x, y);
