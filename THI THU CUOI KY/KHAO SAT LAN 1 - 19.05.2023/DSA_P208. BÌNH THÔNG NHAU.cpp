@@ -1,28 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int par[100005], s[100005];
+int p[100005], s[100005];
 
 int find(int x){
-    if (x == par[x]) return x;
-    return par[x] = find(par[x]);
+    if (x == p[x]) return x;
+    return p[x] = find(p[x]);
 }
 
-bool join(int x, int y){
+void join(int x, int y){
     x = find(x); y = find(y);
-    if (x == y) return false;
+    if (x == y) return;
     if (s[x] < s[y]) swap(x, y);
-    par[y] = x;
-    s[x] += s[y];
-    return true;
+    p[y] = x; s[x] += s[y];
+    return;
 }
 
 int main(){
     int q; cin >> q;
-    for (int i = 1; i <= 100001; i++){
-        par[i] = i;
-        s[i] = 1;
-    }
+    for (int i = 1; i <= 100001; i++) p[i] = i, s[i] = 1;
     while (q--){
         int x, y, z;
         cin >> x >> y >> z;
